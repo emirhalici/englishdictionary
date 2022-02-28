@@ -1,3 +1,4 @@
+import 'package:englishdictionary/components/wordCard.dart';
 import 'package:englishdictionary/models/apiHelper.dart';
 import 'package:englishdictionary/models/quizHelper.dart';
 import 'package:englishdictionary/themes.dart';
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'English Dictionary',
-      theme: darkTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHomePage(title: 'English Dictionary'),
     );
   }
@@ -47,38 +50,61 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(
-              'Good afternoon, Emir',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            Text(
-              'Exchange Rates',
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            Text(
-              'headline 3',
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            Text(
-              'bodytext 1',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            Text(
-              'bodytext 2',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'You have pushed the button this many times:',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Text(
+                'Good afternoon, Emir',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              Text(
+                'Exchange Rates',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              Text(
+                'headline 3',
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              Text(
+                'bodytext 1',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                'bodytext 2',
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              TextButton(
+                style: button1(Theme.of(context)),
+                onPressed: () {},
+                child: const Text('button1'),
+              ),
+              ElevatedButton(
+                style: button2(Theme.of(context)),
+                onPressed: () {},
+                child: const Text('Search Word'),
+              ),
+              OutlinedButton(
+                style: button3(Theme.of(context)),
+                onPressed: () {},
+                child: const Text('Add Manually'),
+              ),
+              WordCard(
+                type: 'noun',
+                definition: 'Exemption  from punishment or freedom from  the injurious consequences of  an action.',
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

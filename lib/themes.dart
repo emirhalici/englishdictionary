@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
 
-const lightPrimary = Color(0xFF1C2541);
+const lightPrimary = Color(0xFF07122A);
 const darkPrimary = Color(0xFF87CEFA);
 const lightBackground = Color(0xFFF5F5F5);
 const textColor = Color(0xFFFFFFFF);
+
+const lightTextColor = Colors.black;
+const darkTextColor = Colors.white;
+
+Color themeTextColor(Brightness brightness) {
+  return brightness == Brightness.dark ? lightTextColor : darkTextColor;
+}
+
 Color? textColor2 = textColor.withOpacity(0.7);
 MaterialColor darkSwatch = createMaterialColor(darkPrimary);
 ColorScheme darkScheme = ColorScheme.fromSwatch(primarySwatch: darkSwatch);
 
+ButtonStyle button1(ThemeData theme) {
+  return TextButton.styleFrom(
+      primary: theme.textTheme.bodyText1?.color, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+}
+
+ButtonStyle button2(ThemeData theme) {
+  return ElevatedButton.styleFrom(
+      primary: theme.brightness == Brightness.dark ? darkPrimary : lightPrimary,
+      onPrimary: themeTextColor(theme.brightness),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+}
+
+ButtonStyle button3(ThemeData theme) {
+  return OutlinedButton.styleFrom(
+      primary: theme.brightness == Brightness.dark ? darkTextColor : lightTextColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+}
+
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  primaryColor: darkPrimary,
   colorScheme: const ColorScheme.dark(secondary: darkPrimary),
   fontFamily: 'Poppins',
   textTheme: const TextTheme(
@@ -17,7 +44,7 @@ ThemeData darkTheme = ThemeData(
     headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.white),
     headline3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400, color: Colors.white),
     bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.white),
-    bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: Colors.white),
+    bodyText2: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.white),
   ),
 );
 
@@ -32,7 +59,7 @@ ThemeData lightTheme = ThemeData(
     headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black),
     headline3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400, color: Colors.black),
     bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
-    bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: Colors.black),
+    bodyText2: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.white),
   ),
 );
 
