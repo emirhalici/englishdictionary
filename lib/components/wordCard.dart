@@ -7,10 +7,8 @@ class WordCard extends StatelessWidget {
   final String type;
   final String definition;
 
-  final Color color1 = const Color(0xFF0F1D25);
-  final Color color2 = const Color(0xFF314652);
-  final Color color3 = const Color(0xFF1FF328);
-  final Color color4 = const Color(0xFFEB1FF5);
+  final Color color1 = const Color(0xFF364E5B);
+  final Color color2 = const Color(0xFF06173D);
   final String assetName = 'assets/images/card.svg';
 
   WordCard({Key? key, required this.type, required this.definition, this.onPress}) : super(key: key);
@@ -22,7 +20,7 @@ class WordCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: <Color>[color1, color2]),
+          gradient: LinearGradient(colors: <Color>[color1, color1]),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Container(
