@@ -12,10 +12,6 @@ Color themeTextColor(Brightness brightness) {
   return brightness == Brightness.dark ? lightTextColor : darkTextColor;
 }
 
-Color? textColor2 = textColor.withOpacity(0.7);
-MaterialColor darkSwatch = createMaterialColor(darkPrimary);
-ColorScheme darkScheme = ColorScheme.fromSwatch(primarySwatch: darkSwatch);
-
 ButtonStyle button1(ThemeData theme) {
   return TextButton.styleFrom(
       primary: theme.textTheme.bodyText1?.color, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class WordCard extends StatelessWidget {
   final Function()? onPress;
@@ -32,11 +31,11 @@ class WordCard extends StatelessWidget {
               center: Alignment.centerRight,
               radius: 0.7,
               colors: <Color>[Colors.white.withOpacity(0.05), Colors.black.withOpacity(0.0)],
-              stops: [1, 1],
+              stops: [0.95, 1],
             ),
           ),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
