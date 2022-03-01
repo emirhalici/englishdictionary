@@ -25,6 +25,28 @@ class WordModel {
         '\'' +
         '}';
   }
+
+  Map<String, String> toMap() {
+    return <String, String>{
+      'id': id.toString(),
+      'word': word,
+      'definition': definition,
+      'type': type,
+      'example': example,
+    };
+  }
+}
+
+WordModel wordModelFromMap(Map<dynamic, dynamic> map) {
+  String? id = map['id'];
+  id ??= '0';
+  return WordModel(
+    id: int.parse(id),
+    word: map['word'].toString(),
+    definition: map['definition'].toString(),
+    type: map['type'].toString(),
+    example: map['example'].toString(),
+  );
 }
 
 class QuizModel {
