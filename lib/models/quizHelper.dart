@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:englishdictionary/models/objects.dart';
+import 'package:english_dictionary/models/objects.dart';
 
 List<QuizModel> getQuizModels(List<WordModel> selectedWords, int size, int optionSize) {
   List<WordModel> newWords = [];

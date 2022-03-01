@@ -1,4 +1,4 @@
-import 'package:englishdictionary/models/objects.dart';
+import 'package:english_dictionary/models/objects.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String tableName = 'tableWords';

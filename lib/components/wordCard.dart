@@ -11,7 +11,7 @@ class WordCard extends StatelessWidget {
   final Color color2 = const Color(0xFF000F31);
   final String assetName = 'assets/images/card.svg';
 
-  WordCard({Key? key, required this.type, required this.definition, this.onPress}) : super(key: key);
+  const WordCard({Key? key, required this.type, required this.definition, this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class WordCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        'adjective',
+                        type,
                         style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 28),
                         textAlign: TextAlign.end,
                       ),
@@ -54,7 +54,7 @@ class WordCard extends StatelessWidget {
                   height: 12,
                 ),
                 Text(
-                  'Exemption from punishment or freedom from the injurious consequences of an action.',
+                  definition,
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontSize: 26,
                         fontWeight: FontWeight.w400,

@@ -1,11 +1,7 @@
-import 'package:englishdictionary/components/wordCard.dart';
-import 'package:englishdictionary/models/apiHelper.dart';
-import 'package:englishdictionary/models/quizHelper.dart';
-import 'package:englishdictionary/themes.dart';
+import 'package:english_dictionary/components/wordCard.dart';
+import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-import 'models/objects.dart';
 
 void main() {
   runApp(const MyApp());
@@ -101,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               WordCard(
                 type: 'noun',
-                definition: 'Exemption  from punishment or freedom from  the injurious consequences of  an action.',
+                definition: 'Exemption from punishment or freedom from the injurious consequences of an action.',
               ),
             ],
           ),
