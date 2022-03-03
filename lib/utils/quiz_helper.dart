@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:english_dictionary/models/objects.dart';
+import 'package:english_dictionary/utils/objects.dart';
 
 class QuizHelper {
   List<QuizModel> getQuizModels(List<WordModel> selectedWords, int size, int optionSize) {
