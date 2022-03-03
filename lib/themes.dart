@@ -8,6 +8,11 @@ const textColor = Color(0xFFFFFFFF);
 const lightTextColor = Colors.black;
 const darkTextColor = Colors.white;
 
+Color textColorWithOpacity(Brightness brightness, double opacity) {
+  Color textColor = themeTextColor(brightness);
+  return textColor.withOpacity(opacity);
+}
+
 Color themeTextColor(Brightness brightness) {
   return brightness == Brightness.dark ? lightTextColor : darkTextColor;
 }
@@ -52,9 +57,10 @@ ThemeData lightTheme = ThemeData(
   backgroundColor: lightBackground,
   fontFamily: 'Poppins',
   textTheme: const TextTheme(
-    headline1: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w900, color: Colors.black),
+    headline1: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w700, color: Colors.black),
     headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black),
     headline3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400, color: Colors.black),
+    headline4: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300, color: Colors.black),
     bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
     bodyText2: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.white),
   ),

@@ -1,5 +1,5 @@
 import 'package:english_dictionary/components/word_card.dart';
-import 'package:english_dictionary/models/objects.dart';
+import 'package:english_dictionary/utils/objects.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 

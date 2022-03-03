@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: AddWordPage(title: 'English Dictionary'),
+      home: const AddWordPage(title: 'English Dictionary'),
     );
   }
 }
