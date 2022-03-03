@@ -1,4 +1,4 @@
-import 'package:english_dictionary/screens/add_word_manually_page.dart';
+import 'package:english_dictionary/screens/add_word_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: AddWordManuallyPage(title: 'English Dictionary'),
+      home: AddWordPage(title: 'English Dictionary'),
     );
   }
 }

@@ -13,9 +13,7 @@ class AddWordManuallyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'English Dictionary',
-        ),
+        title: const Text('English Dictionary'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: SingleChildScrollView(

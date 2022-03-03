@@ -1,4 +1,4 @@
-import 'package:english_dictionary/components/wordCard.dart';
+import 'package:english_dictionary/components/word_card.dart';
 import 'package:english_dictionary/models/objects.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,7 @@ class WordDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Word Details'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),

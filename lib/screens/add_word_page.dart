@@ -1,4 +1,4 @@
-import 'package:english_dictionary/models/apiHelper.dart';
+import 'package:english_dictionary/models/api_helper.dart';
 import 'package:english_dictionary/models/objects.dart';
 import 'package:english_dictionary/screens/word_details_page.dart';
 import 'package:english_dictionary/themes.dart';
@@ -14,6 +14,7 @@ class AddWordPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('English Dictionary'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -30,11 +31,7 @@ class AddWordPage extends StatelessWidget {
             const SizedBox(height: 26),
             TextField(
               controller: controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter the word you\'re looking for',
-                hintText: 'i.e apple',
-              ),
+              decoration: textFieldDecorationWithHint(context, 'Enter the word you\'re looking for', 'i.e apple'),
             ),
             const SizedBox(
               height: 16,
