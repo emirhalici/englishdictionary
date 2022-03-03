@@ -1,3 +1,4 @@
+import 'package:english_dictionary/themes.dart';
 import 'package:english_dictionary/utils/objects.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +9,26 @@ class WordListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black;
+    Color textColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.12),
+            color: textColor.withOpacity(0.12),
             blurRadius: 16.0,
             spreadRadius: 0.0,
             offset: const Offset(0, 0),
           )
         ]),
         child: Card(
-          color: Colors.white,
+          color: backgroundColor,
           elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           child: InkWell(
+            splashColor: Theme.of(context).primaryColorDark,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -34,7 +39,7 @@ class WordListCard extends StatelessWidget {
                     child: Text(
                       wordModel.type,
                       textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 28),
+                      style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 28, color: textColor),
                     ),
                   ),
                 ),
@@ -45,7 +50,7 @@ class WordListCard extends StatelessWidget {
                     child: Text(
                       wordModel.definition,
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 18),
+                      style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 18, color: textColor),
                     ),
                   ),
                 ),
@@ -58,11 +63,11 @@ class WordListCard extends StatelessWidget {
                         text: TextSpan(children: <TextSpan>[
                           TextSpan(
                             text: 'e.g. ',
-                            style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
+                            style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18, color: textColor),
                           ),
                           TextSpan(
                             text: wordModel.example,
-                            style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 18),
+                            style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 18, color: textColor),
                           ),
                         ])),
                   ),
