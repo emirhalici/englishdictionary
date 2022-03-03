@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:english_dictionary/models/objects.dart';
 import 'package:sqflite/sqflite.dart';
 

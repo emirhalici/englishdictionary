@@ -1,5 +1,5 @@
-import 'dart:ui';
-
+// ignore: file_names
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class WordCard extends StatelessWidget {
@@ -18,7 +18,7 @@ class WordCard extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        margin: const EdgeInsets.all(24),
+        margin: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[color1, color2]),
           borderRadius: BorderRadius.circular(16),
@@ -44,7 +44,7 @@ class WordCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         type,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 28),
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 28, color: Colors.white),
                         textAlign: TextAlign.end,
                       ),
                     )
@@ -55,11 +55,10 @@ class WordCard extends StatelessWidget {
                 ),
                 Text(
                   definition,
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2,
-                      ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(fontSize: 26, fontWeight: FontWeight.w400, height: 1.2, color: Colors.white),
                   textAlign: TextAlign.start,
                 ),
               ],
