@@ -12,28 +12,30 @@ Color themeTextColor(Brightness brightness) {
   return brightness == Brightness.dark ? lightTextColor : darkTextColor;
 }
 
-ButtonStyle button1(ThemeData theme) {
+ButtonStyle button1(BuildContext context, ThemeData theme, double radius) {
   return TextButton.styleFrom(
-      primary: theme.textTheme.bodyText1?.color, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+    primary: theme.textTheme.bodyText1?.color,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+  );
 }
 
-ButtonStyle button2(ThemeData theme) {
+ButtonStyle button2(BuildContext context, ThemeData theme, double radius) {
   return ElevatedButton.styleFrom(
       primary: theme.brightness == Brightness.dark ? darkPrimary : lightPrimary,
       onPrimary: themeTextColor(theme.brightness),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)));
 }
 
-ButtonStyle button3(ThemeData theme) {
+ButtonStyle button3(BuildContext context, ThemeData theme, double radius) {
   return OutlinedButton.styleFrom(
       primary: theme.brightness == Brightness.dark ? darkTextColor : lightTextColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)));
 }
 
+// Color(0xAA12161B)
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: darkPrimary,
-  colorScheme: const ColorScheme.dark(secondary: darkPrimary),
+  colorScheme: ThemeData().colorScheme.copyWith(primary: darkPrimary, brightness: Brightness.dark),
   fontFamily: 'Poppins',
   textTheme: const TextTheme(
     headline1: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w900, color: Colors.white),
@@ -46,8 +48,7 @@ ThemeData darkTheme = ThemeData(
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: lightPrimary,
-  primarySwatch: createMaterialColor(lightPrimary),
+  colorScheme: ThemeData().colorScheme.copyWith(primary: lightPrimary, brightness: Brightness.light),
   backgroundColor: lightBackground,
   fontFamily: 'Poppins',
   textTheme: const TextTheme(
@@ -58,6 +59,39 @@ ThemeData lightTheme = ThemeData(
     bodyText2: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.white),
   ),
 );
+
+InputDecoration textFieldDecoration(BuildContext context, String label) {
+  Color borderColor = themeTextColor((Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark)).withAlpha(100);
+
+  return InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: borderColor),
+    ),
+    labelText: label,
+    contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
+    alignLabelWithHint: true,
+  );
+}
+
+InputDecoration textFieldDecorationWithHint(BuildContext context, String label, String hint) {
+  Color borderColor = themeTextColor((Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark)).withAlpha(100);
+  return InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: borderColor),
+    ),
+    labelText: label,
+    contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
+    alignLabelWithHint: true,
+  );
+}
 
 MaterialColor createMaterialColor(Color color) {
   List strengths = <double>[.05];
