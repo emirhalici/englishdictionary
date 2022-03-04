@@ -1,4 +1,3 @@
-import 'package:english_dictionary/components/word_list_card.dart';
 import 'package:english_dictionary/components/word_search_card.dart';
 import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/utils/api_helper.dart';

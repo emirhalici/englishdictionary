@@ -4,7 +4,11 @@ class WordModel {
   String definition;
   String type;
   String example;
-
+  final String columnId = 'columnId';
+  final String columnWord = 'columnWord';
+  final String columnType = 'columnType';
+  final String columnDefinition = 'columnDefinition';
+  final String columnExample = 'columnExample';
   WordModel({required this.id, required this.word, required this.definition, required this.type, required this.example});
 
   @override
@@ -28,11 +32,10 @@ class WordModel {
 
   Map<String, String> toMap() {
     return <String, String>{
-      'id': id.toString(),
-      'word': word,
-      'definition': definition,
-      'type': type,
-      'example': example,
+      columnWord: word,
+      columnDefinition: definition,
+      columnType: type,
+      columnExample: example,
     };
   }
 }

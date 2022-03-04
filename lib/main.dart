@@ -1,4 +1,3 @@
-import 'package:english_dictionary/screens/add_word_page.dart';
 import 'package:english_dictionary/screens/main_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
