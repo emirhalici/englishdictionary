@@ -42,6 +42,7 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   colorScheme: ThemeData().colorScheme.copyWith(primary: darkPrimary, brightness: Brightness.dark),
   fontFamily: 'Poppins',
+  scaffoldBackgroundColor: const Color(0xAA1F2225),
   textTheme: const TextTheme(
     headline1: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w900, color: Colors.white),
     headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.white),

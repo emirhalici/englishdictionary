@@ -1,6 +1,8 @@
 import 'package:english_dictionary/screens/add_word_page.dart';
+import 'package:english_dictionary/screens/main_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'English Dictionary',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
-      home: const AddWordPage(title: 'English Dictionary'),
+    return ScreenUtilInit(
+      builder: () => MaterialApp(
+        title: 'English Dictionary',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.system,
+        home: const MainPage(),
+      ),
+      designSize: const Size(375, 812),
     );
   }
 }

@@ -1,8 +1,7 @@
-// ignore: file_names
-// ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WordCard extends StatelessWidget {
+class WordDetailsCard extends StatelessWidget {
   final Function()? onPress;
   final String type;
   final String definition;
@@ -11,14 +10,13 @@ class WordCard extends StatelessWidget {
   final Color color2 = const Color(0xFF000F31);
   final String assetName = 'assets/images/card.svg';
 
-  const WordCard({Key? key, required this.type, required this.definition, this.onPress}) : super(key: key);
+  const WordDetailsCard({Key? key, required this.type, required this.definition, this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[color1, color2]),
           borderRadius: BorderRadius.circular(16),
@@ -33,7 +31,7 @@ class WordCard extends StatelessWidget {
             ),
           ),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 18.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,21 +42,21 @@ class WordCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         type,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 28, color: Colors.white),
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 28.sp, color: Colors.white),
                         textAlign: TextAlign.end,
                       ),
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: 12.h,
                 ),
                 Text(
                   definition,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
-                      ?.copyWith(fontSize: 26, fontWeight: FontWeight.w400, height: 1.2, color: Colors.white),
+                      ?.copyWith(fontSize: 26.sp, fontWeight: FontWeight.w400, height: 1.2, color: Colors.white),
                   textAlign: TextAlign.start,
                 ),
               ],

@@ -1,19 +1,20 @@
-import 'package:english_dictionary/components/word_card_list.dart';
+import 'package:english_dictionary/components/word_list_card.dart';
+import 'package:english_dictionary/components/word_search_card.dart';
+import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/utils/api_helper.dart';
 import 'package:english_dictionary/utils/objects.dart';
 import 'package:english_dictionary/screens/word_details_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddWordPage extends StatefulWidget {
-  const AddWordPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const AddWordPage({Key? key}) : super(key: key);
 
   @override
   _AddWordPageState createState() => _AddWordPageState();
 }
 
-//
 class _AddWordPageState extends State<AddWordPage> {
   final TextEditingController controller = TextEditingController();
   List<Widget> _cardList = [];
@@ -22,7 +23,7 @@ class _AddWordPageState extends State<AddWordPage> {
     List<Widget> wordCards = [];
     for (final word in words) {
       wordCards.add(
-        WordListCard(
+        WordSearchCard(
           wordModel: word,
           onPress: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
@@ -35,13 +36,14 @@ class _AddWordPageState extends State<AddWordPage> {
 
   @override
   Widget build(BuildContext context) {
+    const String title = 'English Dictionary';
     return Scaffold(
       appBar: AppBar(
-        title: const Text('English Dictionary'),
+        title: const Text(title),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: EdgeInsets.only(top: 0.h),
         child: Expanded(
           child: Column(
             children: [
@@ -50,22 +52,22 @@ class _AddWordPageState extends State<AddWordPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 26, top: 16, right: 26, bottom: 26),
+                    padding: EdgeInsets.only(left: 26.w, top: 16.h, right: 26.w, bottom: 22.h),
                     child: Text(
-                      'Search Word',
-                      style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36),
+                      'Add Word',
+                      style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp),
                       textAlign: TextAlign.start,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 20.h),
                     child: TextField(
                       controller: controller,
                       decoration: textFieldDecorationWithHint(context, 'Enter the word you\'re looking for', 'i.e apple'),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 20.h),
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,17 +95,35 @@ class _AddWordPageState extends State<AddWordPage> {
                                   );
                                 }
                               },
-                              child: const Text('Search Word', style: TextStyle(fontSize: 18)),
+                              child: Text(
+                                'Search Word',
+                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 12,
+                          SizedBox(
+                            width: 20.w,
                           ),
                           Expanded(
                             child: OutlinedButton(
-                              style: button3(context, Theme.of(context), 8),
-                              onPressed: () {},
-                              child: const Text('Add Manually', style: TextStyle(fontSize: 18)),
+                              style: OutlinedButton.styleFrom(
+                                  primary: Theme.of(context).brightness == Brightness.dark ? darkTextColor : lightTextColor,
+                                  side: BorderSide(
+                                    color: Theme.of(context).brightness == Brightness.dark
+                                        ? darkTextColor.withOpacity(0.5)
+                                        : lightTextColor.withOpacity(0.5),
+                                    width: 2.0,
+                                  ),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddWordManuallyPage(title: title)));
+                              },
+                              child: Text(
+                                'Add Manually',
+                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ],
@@ -114,7 +134,7 @@ class _AddWordPageState extends State<AddWordPage> {
               ),
               Expanded(
                 child: ListView.separated(
-                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    separatorBuilder: (_, __) => SizedBox(height: 12.h),
                     itemCount: _cardList.length,
                     itemBuilder: (context, index) {
                       return _cardList[index];
