@@ -1,3 +1,5 @@
+import 'package:english_dictionary/utils/database_helper.dart';
+
 class WordModel {
   int id;
   String word;
@@ -41,14 +43,13 @@ class WordModel {
 }
 
 WordModel wordModelFromMap(Map<dynamic, dynamic> map) {
-  String? id = map['id'];
-  id ??= '0';
+  String? id = map[columnId].toString();
   return WordModel(
     id: int.parse(id),
-    word: map['word'].toString(),
-    definition: map['definition'].toString(),
-    type: map['type'].toString(),
-    example: map['example'].toString(),
+    word: map[columnWord].toString(),
+    definition: map[columnDefinition].toString(),
+    type: map[columnType].toString(),
+    example: map[columnExample].toString(),
   );
 }
 

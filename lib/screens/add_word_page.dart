@@ -1,11 +1,13 @@
 import 'package:english_dictionary/components/word_search_card.dart';
 import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/utils/api_helper.dart';
+import 'package:english_dictionary/utils/database_helper.dart';
 import 'package:english_dictionary/utils/objects.dart';
 import 'package:english_dictionary/screens/word_details_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AddWordPage extends StatefulWidget {
   const AddWordPage({Key? key}) : super(key: key);
@@ -24,8 +26,12 @@ class _AddWordPageState extends State<AddWordPage> {
       wordCards.add(
         WordSearchCard(
           wordModel: word,
-          onPress: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
+          onPress: () async {
+            WordsDatabaseProvider helper = WordsDatabaseProvider();
+            String path = await helper.getDatabasePath();
+            Database db = await helper.open(path);
+            WordModel newModel = await helper.insert(db, word);
+            print(newModel.toString());
           },
         ),
       );
@@ -36,14 +42,9 @@ class _AddWordPageState extends State<AddWordPage> {
   @override
   Widget build(BuildContext context) {
     const String title = 'English Dictionary';
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(title),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 0.h),
-        child: Expanded(
+    return Row(
+      children: [
+        Expanded(
           child: Column(
             children: [
               Column(
@@ -116,7 +117,7 @@ class _AddWordPageState extends State<AddWordPage> {
                                   ),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddWordManuallyPage(title: title)));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddWordManuallyPage()));
                               },
                               child: Text(
                                 'Add Manually',
@@ -142,7 +143,7 @@ class _AddWordPageState extends State<AddWordPage> {
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

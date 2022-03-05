@@ -1,8 +1,10 @@
 import 'package:english_dictionary/components/word_details_card.dart';
+import 'package:english_dictionary/utils/database_helper.dart';
 import 'package:english_dictionary/utils/objects.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sqflite/sqflite.dart';
 
 String capitalize(String s) {
   return s[0].toUpperCase() + s.substring(1);
@@ -64,7 +66,15 @@ class WordDetailsPage extends StatelessWidget {
                           primary: Theme.of(context).brightness == Brightness.dark ? darkTextColor : lightTextColor,
                           side: BorderSide(color: Colors.red.shade800, width: 2.0),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                      onPressed: () {},
+                      onPressed: () async {
+                        WordsDatabaseProvider helper = WordsDatabaseProvider();
+                        String path = await helper.getDatabasePath();
+                        Database db = await helper.open(path);
+                        int id = await helper.delete(db, wordModel.id);
+                        print(id);
+                        helper.close(db);
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 6.h),
                         child: Text(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:english_dictionary/utils/objects.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -48,8 +50,12 @@ class WordsDatabaseProvider {
     List<Map> maps = await db.query(tableName);
     List<WordModel> words = [];
     if (maps.isNotEmpty) {
+      int i = 0;
       for (var map in maps) {
-        words.add(wordModelFromMap(map));
+        print(map);
+        WordModel model = wordModelFromMap(map);
+        words.add(model);
+        print(words[i++]);
       }
     }
     return words;
