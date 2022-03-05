@@ -52,7 +52,7 @@ class WordDetailsPage extends StatelessWidget {
                         child: Text(
                           'Add word to favourites',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -80,7 +80,7 @@ class WordDetailsPage extends StatelessWidget {
                         child: Text(
                           'Delete word',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red.shade800),
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.red.shade800),
                         ),
                       ),
                     ),

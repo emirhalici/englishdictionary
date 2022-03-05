@@ -3,7 +3,6 @@ import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/utils/api_helper.dart';
 import 'package:english_dictionary/utils/database_helper.dart';
 import 'package:english_dictionary/utils/objects.dart';
-import 'package:english_dictionary/screens/word_details_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +40,6 @@ class _AddWordPageState extends State<AddWordPage> {
 
   @override
   Widget build(BuildContext context) {
-    const String title = 'English Dictionary';
     return Row(
       children: [
         Expanded(
@@ -52,7 +50,7 @@ class _AddWordPageState extends State<AddWordPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 26.w, top: 16.h, right: 26.w, bottom: 22.h),
+                    padding: EdgeInsets.only(left: 20.w, top: 16.h, right: 20.w, bottom: 22.h),
                     child: Text(
                       'Add Word',
                       style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp),
@@ -60,14 +58,14 @@ class _AddWordPageState extends State<AddWordPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 20.h),
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
                     child: TextField(
                       controller: controller,
                       decoration: textFieldDecorationWithHint(context, 'Enter the word you\'re looking for', 'i.e apple'),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 20.h),
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +95,7 @@ class _AddWordPageState extends State<AddWordPage> {
                               },
                               child: Text(
                                 'Search Word',
-                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -121,7 +119,7 @@ class _AddWordPageState extends State<AddWordPage> {
                               },
                               child: Text(
                                 'Add Manually',
-                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
                               ),
                             ),
