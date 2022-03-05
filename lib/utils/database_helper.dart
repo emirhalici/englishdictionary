@@ -22,7 +22,7 @@ class WordsDatabaseProvider {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute(
-            '''create table $tableName ($columnId integer autoincrement primary key , $columnWord text not null, $columnType text not null, $columnDefinition text not null, $columnExample text not null)''');
+            '''create table $tableName ($columnId integer primary key autoincrement, $columnWord text not null, $columnType text not null, $columnDefinition text not null, $columnExample text not null)''');
       },
     );
     return database;
