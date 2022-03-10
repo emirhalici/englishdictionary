@@ -1,109 +1,95 @@
-import 'package:english_dictionary/components/word_list_card.dart';
-import 'package:english_dictionary/screens/word_details_page.dart';
-import 'package:english_dictionary/utils/database_helper.dart';
-import 'package:english_dictionary/utils/objects.dart';
+import 'package:english_dictionary/screens/add_word_manually_page.dart';
+import 'package:english_dictionary/screens/add_word_page.dart';
+import 'package:english_dictionary/screens/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  List<WordListCard> cards = [];
+  String title = 'English Dictionary';
 
-  void getWords() async {
-    WordsDatabaseProvider helper = WordsDatabaseProvider();
-    String path = await helper.getDatabasePath();
-    Database db = await helper.open(path);
-    List<WordModel> words = await helper.getAllWords(db);
-    print(words.toString());
-    helper.close(db);
-    setState(() {
-      for (var word in words) {
-        cards.add(WordListCard(
-          wordModel: word,
-          onPress: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
-          },
-        ));
+  void _onTap(int val, BuildContext context) {
+    if (_currentIndex == val) {
+      switch (val) {
+        case 0:
+          _mainScreen.currentState?.popUntil((route) => route.isFirst);
+          break;
+        case 1:
+          _addWordManuallyScreen.currentState?.popUntil((route) => route.isFirst);
+          break;
+        case 2:
+          _addWordScreen.currentState?.popUntil((route) => route.isFirst);
+          break;
+        default:
       }
-    });
+    } else {
+      if (mounted) {
+        setState(() {
+          _currentIndex = val;
+        });
+      }
+    }
   }
 
-  @override
-  void initState() {
-    getWords();
-    super.initState();
-  }
+  int _currentIndex = 0;
+
+  final _mainScreen = GlobalKey<NavigatorState>();
+  final _addWordManuallyScreen = GlobalKey<NavigatorState>();
+  final _addWordScreen = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
-    return
-        // floatingActionButton: FloatingActionButton(onPressed: () async {
-        //   print('button pressed');
-        //   WordsDatabaseProvider helper = WordsDatabaseProvider();
-        //   String path = await helper.getDatabasePath();
-        //   Database db = await helper.open(path);
-        //   WordModel word = await helper.insert(
-        //       db,
-        //       WordModel(
-        //           id: -1,
-        //           word: 'nepotism',
-        //           definition:
-        //               'the practice among those with power or influence of favouring  relatives or friends, especially  by giving them jobs.',
-        //           type: 'noun',
-        //           example: 'example sentence'));
-        //   print(word.toString());
-        //   WordModel? newWord = await helper.getWord(db, word.id);
-        //   print(newWord.toString());
-        //   helper.close(db);
-        // }),
-        SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-        child: StaggeredGrid.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 8.h,
-          crossAxisSpacing: 8.w,
-          children: cards,
-        ),
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: <Widget>[
+          Navigator(
+            key: _mainScreen,
+            onGenerateRoute: (route) => MaterialPageRoute(
+              settings: route,
+              builder: (context) => const HomePage(),
+            ),
+          ),
+          Navigator(
+            key: _addWordManuallyScreen,
+            onGenerateRoute: (route) => MaterialPageRoute(
+              settings: route,
+              builder: (context) => AddWordManuallyPage(),
+            ),
+          ),
+          Navigator(
+            key: _addWordScreen,
+            onGenerateRoute: (route) => MaterialPageRoute(
+              settings: route,
+              builder: (context) => const AddWordPage(),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        currentIndex: _currentIndex,
+        onTap: (val) => _onTap(val, context),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Quiz',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add',
+          ),
+        ],
       ),
     );
   }
 }
-
-// [
-
-//             WordListCard(
-//               wordModel: WordModel(
-//                   id: -1,
-//                   word: 'nepotism',
-//                   definition: 'the th power or influence of favouring  reatives or friends, especially  by giving them jobs.',
-//                   type: 'noun',
-//                   example: 'example sentence'),
-//             ),
-//             WordListCard(
-//               wordModel: WordModel(
-//                   id: -1,
-//                   word: 'nepotism',
-//                   definition:
-//                       'the practice among those with power or influence of favouring  relatives or friends, especially  by giving them jobs.',
-//                   type: 'noun',
-//                   example: 'example sentence'),
-//             ),
-//             WordListCard(
-//               wordModel: WordModel(
-//                 id: -1,
-//                 word: 'demise',
-//                 definition: 'a person\'s death',
-//                 type: 'noun',
-//                 example: 'Mr. James\' demise has upset all of us.',
-//               ),
-//             ),
-//           ],
