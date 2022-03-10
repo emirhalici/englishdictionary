@@ -20,9 +20,11 @@ class WordDetailsPage extends StatelessWidget {
         Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.48) : Colors.white.withOpacity(0.6);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: true,
         title: const Text('Word Details'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 24.w, right: 24.w, top: 16.w, bottom: 24.w),
@@ -70,8 +72,7 @@ class WordDetailsPage extends StatelessWidget {
                         WordsDatabaseProvider helper = WordsDatabaseProvider();
                         String path = await helper.getDatabasePath();
                         Database db = await helper.open(path);
-                        int id = await helper.delete(db, wordModel.id);
-                        print(id);
+                        await helper.delete(db, wordModel.id);
                         helper.close(db);
                         Navigator.pop(context);
                       },

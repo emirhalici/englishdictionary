@@ -36,10 +36,6 @@ class WordsDatabaseProvider {
   Future<WordModel?> getWord(Database db, int id) async {
     List<Map> maps = await db.query(tableName, where: '$columnId = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
-      if (maps.length > 1) {
-        String s = maps.toString();
-        print('more than one wordModel, $s');
-      }
       return wordModelFromMap(maps.first);
     } else {
       return null;
@@ -50,12 +46,9 @@ class WordsDatabaseProvider {
     List<Map> maps = await db.query(tableName);
     List<WordModel> words = [];
     if (maps.isNotEmpty) {
-      int i = 0;
       for (var map in maps) {
-        print(map);
         WordModel model = wordModelFromMap(map);
         words.add(model);
-        print(words[i++]);
       }
     }
     return words;

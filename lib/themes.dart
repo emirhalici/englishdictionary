@@ -55,7 +55,7 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   colorScheme: ThemeData().colorScheme.copyWith(primary: lightPrimary, brightness: Brightness.light),
-  backgroundColor: lightBackground,
+  scaffoldBackgroundColor: lightBackground,
   fontFamily: 'Poppins',
   textTheme: const TextTheme(
     headline1: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w700, color: Colors.black),
@@ -65,6 +65,25 @@ ThemeData lightTheme = ThemeData(
     bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
     bodyText2: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: Colors.white),
   ),
+);
+
+ThemeData theme = ThemeData(
+  colorScheme: const ColorScheme(
+    primary: Color(0xAA07122A),
+    primaryContainer: Color(0xAA112b64),
+    secondary: Color(0xAA758ECD),
+    secondaryContainer: Color(0xAA506fbf),
+    surface: Color(0xAAFFFFFF),
+    background: Color(0xAAe6e6e6),
+    error: Color(0xAAe1001e),
+    onPrimary: Color(0xAAFFFFFF),
+    onSecondary: Color(0xAAFFFFFF),
+    onSurface: Color(0xAA000000),
+    onBackground: Color(0xAA000000),
+    onError: Color(0xAAFFFFFF),
+    brightness: Brightness.light,
+  ),
+  fontFamily: 'Poppins',
 );
 
 InputDecoration textFieldDecoration(BuildContext context, String label) {

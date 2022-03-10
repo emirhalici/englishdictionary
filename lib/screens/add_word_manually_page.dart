@@ -11,8 +11,13 @@ class AddWordManuallyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Add Word'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
