@@ -1,6 +1,9 @@
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/main_provider.dart';
 
 class QuizStartPage extends StatefulWidget {
   const QuizStartPage({Key? key}) : super(key: key);
@@ -10,8 +13,35 @@ class QuizStartPage extends StatefulWidget {
 }
 
 class _QuizStartPageState extends State<QuizStartPage> {
+  int desiredQuizSize = 1;
+  bool isQuizReversed = false;
+  List<String> allTypes = [];
+  List<String> typeFilter = [];
+  int maxQuizSize = 10;
+
+  void buildChips() async {
+    // if (allTypes.isEmpty) {
+    //   List<String> types = await context.watch<MainProvider>().getWordTypes();
+    //   allTypes.addAll(types);
+    //   typeFilter.addAll(types);
+    // }
+    allTypes = await context.watch<MainProvider>().getWordTypes();
+  }
+
+  void getMaxQuizSize() async {
+    maxQuizSize = await context.watch<MainProvider>().maxQuizSize();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getMaxQuizSize();
+    if (maxQuizSize < 1) {
+      maxQuizSize = 10;
+      desiredQuizSize = 3;
+    }
+
+    buildChips();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -27,10 +57,12 @@ class _QuizStartPageState extends State<QuizStartPage> {
               padding: EdgeInsets.only(bottom: 32.h),
               child: ElevatedButton(
                 style: button2(context, Theme.of(context), 24),
-                onPressed: () {},
+                onPressed: () async {
+                  // move to the quiz page
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Text('Start!', style: TextStyle(fontSize: 24.sp)),
+                  child: Text('Start', style: TextStyle(fontSize: 24.sp)),
                 ),
               ),
             ),
@@ -57,8 +89,12 @@ class _QuizStartPageState extends State<QuizStartPage> {
                     ),
                     Checkbox(
                       fillColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
-                      value: true,
-                      onChanged: (newValue) {},
+                      value: isQuizReversed,
+                      onChanged: (newValue) {
+                        setState(() {
+                          isQuizReversed = newValue ?? false;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -75,15 +111,20 @@ class _QuizStartPageState extends State<QuizStartPage> {
                     Flexible(
                       fit: FlexFit.loose,
                       child: Slider.adaptive(
-                        min: 0,
-                        max: 20,
-                        value: 20,
-                        onChanged: (newValue) {},
+                        min: 1,
+                        max: maxQuizSize.toDouble() <= 1 ? 2 : maxQuizSize.toDouble(),
+                        value: desiredQuizSize.toDouble() > maxQuizSize ? maxQuizSize - 1 : desiredQuizSize.toDouble(),
+                        activeColor: Theme.of(context).colorScheme.primary,
+                        onChanged: (newValue) {
+                          setState(() {
+                            desiredQuizSize = newValue.toInt();
+                          });
+                        },
                       ),
                     ),
                     SizedBox(width: 12.w),
                     Text(
-                      '20/20',
+                      '$desiredQuizSize/$maxQuizSize',
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
                     ),
@@ -95,11 +136,58 @@ class _QuizStartPageState extends State<QuizStartPage> {
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
                 ),
+                Wrap(
+                  spacing: 8.w,
+                  children: List<Widget>.generate(
+                    allTypes.length,
+                    (int idx) {
+                      return FilterChip(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: chipBorderColor(context), width: 1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          backgroundColor: Colors.transparent,
+                          selectedColor: Colors.transparent,
+                          label: Text(
+                            allTypes[idx],
+                            style: const TextStyle(),
+                          ),
+                          selected: typeFilter.contains(allTypes[idx]),
+                          onSelected: (bool selected) {
+                            setState(() {
+                              if (selected) {
+                                if (!typeFilter.contains(allTypes[idx])) {
+                                  typeFilter.add(allTypes[idx]);
+                                }
+                              } else {
+                                typeFilter.remove(allTypes[idx]);
+                              }
+                            });
+                          });
+                    },
+                  ).toList(),
+                )
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class FilterChipWidget extends StatelessWidget {
+  final String title;
+  final Function(bool)? onSelect;
+  final bool isSelected;
+  const FilterChipWidget({Key? key, required this.title, required this.onSelect, required this.isSelected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FilterChip(
+      label: Text(title),
+      selected: isSelected,
+      onSelected: onSelect,
     );
   }
 }

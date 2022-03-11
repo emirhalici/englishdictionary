@@ -86,6 +86,16 @@ ThemeData theme = ThemeData(
   fontFamily: 'Poppins',
 );
 
+Color chipBorderColor(BuildContext context) {
+  Brightness brightness = Theme.of(context).brightness;
+
+  if (brightness == Brightness.light) {
+    return Theme.of(context).colorScheme.primary;
+  } else {
+    return Colors.white;
+  }
+}
+
 InputDecoration textFieldDecoration(BuildContext context, String label) {
   Color borderColor = themeTextColor((Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark)).withAlpha(100);
 
