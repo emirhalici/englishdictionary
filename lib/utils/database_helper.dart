@@ -32,6 +32,17 @@ class WordsDatabaseHelper {
     return wordModel;
   }
 
+  Future<List<String>> getWordTypes(Database db) async {
+    List<Map> maps = await db.rawQuery('''SELECT DISTINCT $columnType FROM $tableName''');
+    List<String> list = [];
+    if (maps.isNotEmpty) {
+      for (var item in maps) {
+        list.add(item['columnType']);
+      }
+    }
+    return list;
+  }
+
   Future<WordModel?> getWord(Database db, int id) async {
     List<Map> maps = await db.query(tableName, where: '$columnId = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
