@@ -52,10 +52,3 @@ WordModel wordModelFromMap(Map<dynamic, dynamic> map) {
     example: map[columnExample].toString(),
   );
 }
-
-class QuizModel {
-  int answerIndex;
-  List<WordModel> options;
-
-  QuizModel({required this.options, required this.answerIndex});
-}

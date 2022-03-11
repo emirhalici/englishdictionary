@@ -1,7 +1,7 @@
 // ignore: file_names
 // ignore: file_names
 import 'dart:convert';
-import 'objects.dart';
+import 'package:english_dictionary/models/word_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHelper {

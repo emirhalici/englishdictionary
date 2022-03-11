@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:english_dictionary/utils/objects.dart';
+import 'package:english_dictionary/models/word_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String tableName = 'tableWords';
@@ -10,7 +9,7 @@ const String columnType = 'columnType';
 const String columnDefinition = 'columnDefinition';
 const String columnExample = 'columnExample';
 
-class WordsDatabaseProvider {
+class WordsDatabaseHelper {
   Future<String> getDatabasePath() async {
     var databasesPath = await getDatabasesPath();
     return databasesPath + tableName;

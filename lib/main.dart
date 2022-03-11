@@ -1,10 +1,19 @@
+import 'package:english_dictionary/providers/main_provider.dart';
 import 'package:english_dictionary/screens/main_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MainProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
