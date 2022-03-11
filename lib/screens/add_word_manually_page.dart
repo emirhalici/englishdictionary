@@ -1,6 +1,9 @@
+import 'package:english_dictionary/models/word_model.dart';
+import 'package:english_dictionary/providers/main_provider.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class AddWordManuallyPage extends StatelessWidget {
   final TextEditingController controllerWord = TextEditingController();
@@ -63,7 +66,18 @@ class AddWordManuallyPage extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       style: button2(context, Theme.of(context), 8),
-                      onPressed: () {},
+                      onPressed: () {
+                        // add word
+                        String word = controllerWord.text;
+                        String type = controllerType.text;
+                        String definition = controllerDefinition.text;
+                        String example = controllerExample.text;
+
+                        WordModel newWord = WordModel(id: -1, word: word, definition: definition, type: type, example: example);
+
+                        context.read<MainProvider>().insert(newWord);
+                        Navigator.pop(context);
+                      },
                       child: Text('Add Word', style: TextStyle(fontSize: 14.sp)),
                     ),
                   ),
