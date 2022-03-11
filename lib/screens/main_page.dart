@@ -1,6 +1,7 @@
 import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/screens/add_word_page.dart';
 import 'package:english_dictionary/screens/home_page.dart';
+import 'package:english_dictionary/screens/quiz_start_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MainPageState extends State<MainPage> {
           _mainScreen.currentState?.popUntil((route) => route.isFirst);
           break;
         case 1:
-          _addWordManuallyScreen.currentState?.popUntil((route) => route.isFirst);
+          _quizStartScreen.currentState?.popUntil((route) => route.isFirst);
           break;
         case 2:
           _addWordScreen.currentState?.popUntil((route) => route.isFirst);
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   final _mainScreen = GlobalKey<NavigatorState>();
-  final _addWordManuallyScreen = GlobalKey<NavigatorState>();
+  final _quizStartScreen = GlobalKey<NavigatorState>();
   final _addWordScreen = GlobalKey<NavigatorState>();
 
   @override
@@ -56,10 +57,10 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           Navigator(
-            key: _addWordManuallyScreen,
+            key: _quizStartScreen,
             onGenerateRoute: (route) => MaterialPageRoute(
               settings: route,
-              builder: (context) => AddWordManuallyPage(),
+              builder: (context) => const QuizStartPage(),
             ),
           ),
           Navigator(
