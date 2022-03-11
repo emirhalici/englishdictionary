@@ -1,4 +1,3 @@
-import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/screens/add_word_page.dart';
 import 'package:english_dictionary/screens/home_page.dart';
 import 'package:english_dictionary/screens/quiz_start_page.dart';

@@ -44,11 +44,13 @@ class _HomePageState extends State<HomePage> {
       body: Material(
         color: Colors.transparent,
         child: cards.isNotEmpty
-            ? Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                child: StaggeredGrid.count(
-                  crossAxisCount: 2,
-                  children: cards,
+            ? SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                  child: StaggeredGrid.count(
+                    crossAxisCount: 2,
+                    children: cards,
+                  ),
                 ),
               )
             : const EmptyMainPage(),

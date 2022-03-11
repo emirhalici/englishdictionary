@@ -1,12 +1,10 @@
 import 'package:english_dictionary/components/word_details_card.dart';
 import 'package:english_dictionary/models/word_model.dart';
 import 'package:english_dictionary/providers/main_provider.dart';
-import 'package:english_dictionary/utils/database_helper.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 
 String capitalize(String s) {
   return s[0].toUpperCase() + s.substring(1);
