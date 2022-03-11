@@ -1,12 +1,14 @@
 import 'package:english_dictionary/components/word_search_card.dart';
+import 'package:english_dictionary/models/word_model.dart';
+import 'package:english_dictionary/providers/main_provider.dart';
 import 'package:english_dictionary/screens/add_word_manually_page.dart';
 import 'package:english_dictionary/utils/api_helper.dart';
-import 'package:english_dictionary/utils/database_helper.dart';
-import 'package:english_dictionary/utils/objects.dart';
 import 'package:english_dictionary/themes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:provider/provider.dart';
+import 'dart:io' show Platform;
 
 class AddWordPage extends StatefulWidget {
   const AddWordPage({Key? key}) : super(key: key);
@@ -26,10 +28,51 @@ class _AddWordPageState extends State<AddWordPage> {
         WordSearchCard(
           wordModel: word,
           onPress: () async {
-            WordsDatabaseProvider helper = WordsDatabaseProvider();
-            String path = await helper.getDatabasePath();
-            Database db = await helper.open(path);
-            await helper.insert(db, word);
+            // Show confirmation dialog with platform specific ui
+            if (Platform.isIOS) {
+              showCupertinoDialog(
+                context: context,
+                builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text("Add to vocabulary?"),
+                    content: Text("The word ${word.word} will be added to your vocabulary"),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: const Text('Add'),
+                        onPressed: () {
+                          context.read<MainProvider>().insert(word);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      CupertinoDialogAction(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ]),
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text("Add to vocabulary?"),
+                  content: Text("The word ${word.word} will be added to your vocabulary"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          context.read<MainProvider>().insert(word);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Add')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel')),
+                  ],
+                ),
+              );
+            }
           },
         ),
       );
@@ -87,8 +130,6 @@ class _AddWordPageState extends State<AddWordPage> {
                                     setState(() {
                                       addCardsToList(words);
                                     });
-                                    //WordModel word = words.first;
-                                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
