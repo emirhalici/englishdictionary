@@ -4,10 +4,44 @@ import 'package:english_dictionary/utils/quiz_helper.dart';
 import 'package:flutter/material.dart';
 
 class QuizProvider with ChangeNotifier {
-  List<QuizModel> quizList;
+  List<QuizModel> quizList = [];
   List<WordModel> wrongWords = [];
+  List<WordModel> allWords = [];
+  List<WordModel> selectedWords = [];
+  bool isAnswerQuestion = false;
 
-  QuizProvider({required this.quizList});
+  void setSelectedWords(List<WordModel> words) {
+    allWords = words;
+    notifyListeners();
+  }
+
+  void filterWords(int size, List<String> types) {
+    selectedWords = [];
+    // first filter by types
+    for (final word in allWords) {
+      if (types.contains(word.type)) {
+        selectedWords.add(word);
+      }
+    }
+
+    // then filter by size
+    if (selectedWords.length < size) {
+      print('selectedWords > size');
+    } else {
+      //selectedWords.removeRange(0, size - 1);
+    }
+
+    notifyListeners();
+  }
+
+  void initializeList(int size) {
+    int optionSize = 4;
+    quizList = QuizHelper().getQuizModels(selectedWords, size, optionSize);
+  }
+
+  void setQuizStatus(bool isQuestionAnswer) {
+    isAnswerQuestion = isQuestionAnswer;
+  }
 
   int currentIndex = 0;
   late int maxIndex = quizList.length - 1;
