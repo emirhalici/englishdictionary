@@ -1,5 +1,5 @@
 name: english_dictionary
-description: A new Flutter project.
+description: A simple dictionary app.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^1.0.3
   provider: ^6.0.2
   adaptive_dialog: ^1.4.0
+  flutter_animation_progress_bar: ^2.0.1 
   
 dev_dependencies:
   flutter_test:

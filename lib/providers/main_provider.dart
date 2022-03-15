@@ -1,6 +1,5 @@
 import 'package:english_dictionary/models/word_model.dart';
 import 'package:english_dictionary/utils/database_helper.dart';
-import 'package:english_dictionary/utils/quiz_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -29,17 +28,24 @@ class MainProvider with ChangeNotifier {
     WordsDatabaseHelper helper = WordsDatabaseHelper();
     String path = await helper.getDatabasePath();
     Database db = await helper.open(path);
-    WordModel newW = await helper.insert(db, wordModel);
-    int id = newW.id;
+    await helper.insert(db, wordModel);
+
     _wordList = await helper.getAllWords(db);
     notifyListeners();
   }
 
-  Future<int> maxQuizSize() async {
+  int maxQuizSize(List<String> types) {
     refresh();
-    int size = QuizHelper().getMaxQuizSize(wordList, 4);
+    int count = 0;
 
-    return size;
+    for (final word in wordList) {
+      if (types.contains(word.type)) {
+        count++;
+      }
+    }
+    count -= 5;
+
+    return count;
   }
 
   Future<List<String>> getWordTypes() async {

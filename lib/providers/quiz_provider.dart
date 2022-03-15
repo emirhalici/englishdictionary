@@ -57,10 +57,12 @@ class QuizProvider with ChangeNotifier {
 
   void nextQuestion(int choice) {
     QuizModel current = getQuizModel();
-    bool isCorrect = QuizHelper().isCorrectAnswer(current, choice);
+    print(choice.toString());
+    print(current.answerIndex.toString());
+    bool isCorrect = current.answerIndex == choice;
     if (isCorrect) {
       trueAnswer++;
-    } else if (!isCorrect && (choice < 4 && choice >= 0)) {
+    } else if (!isCorrect || (choice > 3 || choice < 0)) {
       wrongAnswer++;
     }
 
@@ -79,5 +81,17 @@ class QuizProvider with ChangeNotifier {
   int successRate() {
     double rate = trueAnswer / questionCount * 100;
     return rate.toInt();
+  }
+
+  void resetEverything() {
+    trueAnswer = 0;
+    wrongAnswer = 0;
+    isQuizOver = false;
+    quizList = [];
+    wrongWords = [];
+    allWords = [];
+    selectedWords = [];
+    isAnswerQuestion = false;
+    currentIndex = 0;
   }
 }

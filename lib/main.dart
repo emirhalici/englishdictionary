@@ -1,4 +1,5 @@
 import 'package:english_dictionary/providers/main_provider.dart';
+import 'package:english_dictionary/providers/quiz_provider.dart';
 import 'package:english_dictionary/screens/main_page.dart';
 import 'package:english_dictionary/themes.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MainProvider()),
+        ChangeNotifierProvider(create: (_) => QuizProvider()),
       ],
       child: const MyApp(),
     ),

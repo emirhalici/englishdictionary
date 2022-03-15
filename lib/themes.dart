@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const lightPrimary = Color(0xFF07122A);
 const darkPrimary = Color(0xFF87CEFA);
@@ -35,6 +36,54 @@ ButtonStyle button3(BuildContext context, ThemeData theme, double radius) {
   return OutlinedButton.styleFrom(
       primary: theme.brightness == Brightness.dark ? darkTextColor : lightTextColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)));
+}
+
+ButtonStyle questionButtonStyle(BuildContext context) {
+  ThemeData theme = Theme.of(context);
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    primary: theme.brightness == Brightness.dark ? Colors.white.withAlpha(80) : const Color(0xAAF0F0F0),
+    onSurface: Colors.black,
+    onPrimary: theme.brightness == Brightness.dark ? Colors.white : Colors.black,
+  );
+}
+
+ButtonStyle correctButtonStyle(BuildContext context) {
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    primary: Colors.greenAccent,
+    onSurface: Colors.green.shade800,
+    onPrimary: Colors.black,
+  );
+}
+
+ButtonStyle wrongButtonStyle(BuildContext context) {
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    primary: Colors.redAccent,
+    onSurface: Colors.red.shade800,
+    onPrimary: Colors.black,
+  );
+}
+
+ButtonStyle quizButtonStyleWithColor(BuildContext context, Color color) {
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    primary: color,
+    onPrimary: Colors.black,
+  );
+}
+
+TextStyle quizButtonStyle(ThemeData theme) {
+  return TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    //color: theme.brightness == Brightness.dark ? Colors.white : Colors.black,
+  );
 }
 
 // Color(0xAA12161B)
