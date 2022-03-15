@@ -21,6 +21,18 @@ class _AddWordPageState extends State<AddWordPage> {
   final TextEditingController controller = TextEditingController();
   List<Widget> _cardList = [];
 
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      if (controller.text == '') {
+        setState(() {
+          _cardList = [];
+        });
+      }
+    });
+  }
+
   void addCardsToList(List<WordModel> words) {
     List<Widget> wordCards = [];
     for (final word in words) {
@@ -132,9 +144,10 @@ class _AddWordPageState extends State<AddWordPage> {
                                     });
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Error while searching for word.'),
-                                        duration: Duration(milliseconds: 1500),
+                                      SnackBar(
+                                        content: const Text('Error while searching for word.'),
+                                        backgroundColor: Theme.of(context).colorScheme.primary,
+                                        duration: const Duration(milliseconds: 1500),
                                       ),
                                     );
                                   }
