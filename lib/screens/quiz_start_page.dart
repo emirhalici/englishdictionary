@@ -75,7 +75,7 @@ class _QuizStartPageState extends State<QuizStartPage> {
                             context.read<QuizProvider>().setSelectedWords(words);
                             context.read<QuizProvider>().filterWords(desiredQuizSize, typeFilter);
                             context.read<QuizProvider>().initializeList(desiredQuizSize);
-                            context.read<QuizProvider>().setQuizStatus(isQuizReversed);
+                            context.read<QuizProvider>().setQuizStatus(!isQuizReversed);
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizPage()));
                           }
                         },

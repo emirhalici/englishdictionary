@@ -21,6 +21,7 @@ class _QuizPageState extends State<QuizPage> {
   int choice = -1;
   @override
   Widget build(BuildContext context) {
+    final bool isReversed = context.watch<QuizProvider>().isAnswerQuestion;
     int currentIndex = context.watch<QuizProvider>().currentIndex;
     int questionCount = context.watch<QuizProvider>().questionCount;
     QuizModel currentQuestion = context.watch<QuizProvider>().getQuizModel();
@@ -92,7 +93,10 @@ class _QuizPageState extends State<QuizPage> {
               Padding(
                 padding: EdgeInsets.only(top: 32.h, left: 20.w, right: 20.w),
                 child: Text(
-                  currentQuestion.options[currentQuestion.answerIndex].definition,
+                  isReversed
+                      ? currentQuestion.options[currentQuestion.answerIndex].definition
+                      : currentQuestion.options[currentQuestion.answerIndex].word,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline3?.copyWith(
                         fontSize: 24.sp,
                       ),
@@ -119,8 +123,9 @@ class _QuizPageState extends State<QuizPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      currentQuestion.options[0].word,
+                      isReversed ? currentQuestion.options[0].word : currentQuestion.options[0].definition,
                       style: quizButtonStyle(Theme.of(context)),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -139,8 +144,9 @@ class _QuizPageState extends State<QuizPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      currentQuestion.options[1].word,
+                      isReversed ? currentQuestion.options[1].word : currentQuestion.options[1].definition,
                       style: quizButtonStyle(Theme.of(context)),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -159,8 +165,9 @@ class _QuizPageState extends State<QuizPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      currentQuestion.options[2].word,
+                      isReversed ? currentQuestion.options[2].word : currentQuestion.options[2].definition,
                       style: quizButtonStyle(Theme.of(context)),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -179,8 +186,9 @@ class _QuizPageState extends State<QuizPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      currentQuestion.options[3].word,
+                      isReversed ? currentQuestion.options[3].word : currentQuestion.options[3].definition,
                       style: quizButtonStyle(Theme.of(context)),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
