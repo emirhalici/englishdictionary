@@ -9,6 +9,12 @@ class QuizProvider with ChangeNotifier {
   List<WordModel> allWords = [];
   List<WordModel> selectedWords = [];
   bool isAnswerQuestion = false;
+  int currentIndex = 0;
+  int trueAnswer = 0;
+  int wrongAnswer = 0;
+  bool isQuizOver = false;
+  late int maxIndex = quizList.length - 1;
+  late int questionCount = quizList.length;
 
   void setSelectedWords(List<WordModel> words) {
     allWords = words;
@@ -27,8 +33,6 @@ class QuizProvider with ChangeNotifier {
     // then filter by size
     if (selectedWords.length < size) {
       print('selectedWords > size');
-    } else {
-      //selectedWords.removeRange(0, size - 1);
     }
 
     notifyListeners();
@@ -45,14 +49,6 @@ class QuizProvider with ChangeNotifier {
   void setQuizStatus(bool isQuestionAnswer) {
     isAnswerQuestion = isQuestionAnswer;
   }
-
-  int currentIndex = 0;
-  late int maxIndex = quizList.length - 1;
-
-  late int questionCount = quizList.length;
-  int trueAnswer = 0;
-  int wrongAnswer = 0;
-  bool isQuizOver = false;
 
   QuizModel getQuizModel() {
     if (currentIndex > maxIndex) {
