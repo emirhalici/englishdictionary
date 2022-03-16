@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({Key? key}) : super(key: key);
@@ -25,6 +26,8 @@ class _QuizPageState extends State<QuizPage> {
     int currentIndex = context.watch<QuizProvider>().currentIndex;
     int questionCount = context.watch<QuizProvider>().questionCount;
     QuizModel currentQuestion = context.watch<QuizProvider>().getQuizModel();
+
+    print('current at $currentIndex+1th question');
 
     // 0 for unanswered, 1 for correct, 2 for wrong answers, 3 for disabled.
 
@@ -124,10 +127,11 @@ class _QuizPageState extends State<QuizPage> {
                   style: buttonStyle(0),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
+                    child: AutoSizeText(
                       isReversed ? currentQuestion.options[0].word : currentQuestion.options[0].definition,
                       style: quizButtonStyle(Theme.of(context)),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 ),
@@ -145,10 +149,11 @@ class _QuizPageState extends State<QuizPage> {
                   style: buttonStyle(1),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
+                    child: AutoSizeText(
                       isReversed ? currentQuestion.options[1].word : currentQuestion.options[1].definition,
                       style: quizButtonStyle(Theme.of(context)),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 ),
@@ -173,10 +178,11 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
+                    child: AutoSizeText(
                       isReversed ? currentQuestion.options[2].word : currentQuestion.options[2].definition,
                       style: quizButtonStyle(Theme.of(context)),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 ),
@@ -194,10 +200,11 @@ class _QuizPageState extends State<QuizPage> {
                   style: buttonStyle(3),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
+                    child: AutoSizeText(
                       isReversed ? currentQuestion.options[3].word : currentQuestion.options[3].definition,
                       style: quizButtonStyle(Theme.of(context)),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 ),
