@@ -22,7 +22,8 @@ class QuizHelper {
         }
         options.add(nextWord);
       }
-      int answerIndex = random.nextInt(options.length + 1);
+      int answerIndex = random.nextInt(options.length);
+      print(answerIndex.toString());
       options.insert(answerIndex, word);
       QuizModel model = QuizModel(options: options, answerIndex: answerIndex);
       print(i.toString() + ' answer:' + model.answerIndex.toString());

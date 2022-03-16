@@ -132,7 +132,7 @@ class _QuizStartPageState extends State<QuizStartPage> {
                               child: Slider.adaptive(
                                 min: 0,
                                 max: maxQuizSize.toDouble() <= 1 ? 1 : maxQuizSize.toDouble(),
-                                value: desiredQuizSize.toDouble(),
+                                value: desiredQuizSize > maxQuizSize ? maxQuizSize.toDouble() : desiredQuizSize.toDouble(),
                                 activeColor: Theme.of(context).colorScheme.primary,
                                 onChanged: (newValue) {
                                   setState(() {
