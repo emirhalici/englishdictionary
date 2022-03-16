@@ -2,6 +2,9 @@ import 'package:english_dictionary/screens/add_word_page.dart';
 import 'package:english_dictionary/screens/home_page.dart';
 import 'package:english_dictionary/screens/quiz_start_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/main_provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -17,6 +20,7 @@ class _MainPageState extends State<MainPage> {
     if (_currentIndex == val) {
       switch (val) {
         case 0:
+          context.read<MainProvider>().scrollToTop();
           _mainScreen.currentState?.popUntil((route) => route.isFirst);
           break;
         case 1:

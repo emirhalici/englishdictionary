@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       cards.add(WordListCard(
         wordModel: word,
         onPress: () {
+          context.read<MainProvider>().scrollToTop();
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
         },
       ));
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.transparent,
         child: cards.isNotEmpty
             ? SingleChildScrollView(
+                controller: context.watch<MainProvider>().controller,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                   child: StaggeredGrid.count(
