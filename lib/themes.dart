@@ -149,15 +149,17 @@ Color chipBorderColor(BuildContext context) {
   }
 }
 
+const double textFieldBorderRadius = 12;
+
 InputDecoration textFieldDecoration(BuildContext context, String label) {
   Color borderColor = themeTextColor((Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark)).withAlpha(100);
 
   return InputDecoration(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(textFieldBorderRadius),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(textFieldBorderRadius),
       borderSide: BorderSide(color: borderColor),
     ),
     labelText: label,
@@ -170,13 +172,14 @@ InputDecoration textFieldDecorationWithHint(BuildContext context, String label, 
   Color borderColor = themeTextColor((Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark)).withAlpha(100);
   return InputDecoration(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(textFieldBorderRadius),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(textFieldBorderRadius),
       borderSide: BorderSide(color: borderColor),
     ),
     labelText: label,
+    hintText: hint,
     contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
     alignLabelWithHint: true,
   );
