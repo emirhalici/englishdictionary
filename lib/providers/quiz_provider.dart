@@ -36,7 +36,10 @@ class QuizProvider with ChangeNotifier {
 
   void initializeList(int size) {
     int optionSize = 4;
-    quizList = QuizHelper().getQuizModels(selectedWords, size, optionSize);
+    quizList = QuizHelper().getQuizModels(selectedWords, optionSize);
+    if (quizList.length > size) {
+      quizList.removeRange(size - 1, quizList.length - 1);
+    }
   }
 
   void setQuizStatus(bool isQuestionAnswer) {
@@ -52,13 +55,15 @@ class QuizProvider with ChangeNotifier {
   bool isQuizOver = false;
 
   QuizModel getQuizModel() {
-    return quizList[currentIndex];
+    if (currentIndex > maxIndex) {
+      return quizList[maxIndex];
+    } else {
+      return quizList[currentIndex];
+    }
   }
 
   void nextQuestion(int choice) {
     QuizModel current = getQuizModel();
-    print(choice.toString());
-    print(current.answerIndex.toString());
     bool isCorrect = current.answerIndex == choice;
     if (isCorrect) {
       trueAnswer++;

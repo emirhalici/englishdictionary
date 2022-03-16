@@ -72,6 +72,7 @@ class _QuizPageState extends State<QuizPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FAProgressBar(
                 currentValue: (currentIndex / questionCount * 100).toInt(),
@@ -202,6 +203,7 @@ class _QuizPageState extends State<QuizPage> {
                         child: ElevatedButton(
                           style: button2(context, Theme.of(context), 8),
                           onPressed: () {
+                            context.read<QuizProvider>().nextQuestion(choice);
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizEndPage()));
                           },
                           child: Text(
@@ -221,20 +223,15 @@ class _QuizPageState extends State<QuizPage> {
                           child: ElevatedButton(
                             style: button2(context, Theme.of(context), 8),
                             onPressed: () {
-                              if (questionCount == currentIndex + 1) {
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizEndPage()));
-                              } else {
-                                if (questionCount == currentIndex + 2) {
-                                  setState(() {
-                                    isNextButtonVisible = false;
-                                  });
-                                }
-                                isActive = true;
-                                print('choice' + choice.toString());
-                                context.read<QuizProvider>().nextQuestion(choice);
-                                resetButtons();
-                                choice = -1;
+                              if (questionCount == currentIndex + 2) {
+                                setState(() {
+                                  isNextButtonVisible = false;
+                                });
                               }
+                              isActive = true;
+                              context.read<QuizProvider>().nextQuestion(choice);
+                              resetButtons();
+                              choice = -1;
                             },
                             child: Text(
                               'Next',

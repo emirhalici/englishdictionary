@@ -3,14 +3,13 @@ import 'package:english_dictionary/models/quiz_model.dart';
 import 'package:english_dictionary/models/word_model.dart';
 
 class QuizHelper {
-  List<QuizModel> getQuizModels(List<WordModel> selectedWords, int size, int optionSize) {
+  List<QuizModel> getQuizModels(List<WordModel> selectedWords, int optionSize) {
     List<WordModel> newWords = [];
     newWords.addAll(selectedWords);
     newWords.shuffle();
-    newWords.removeRange(size, selectedWords.length - 1);
 
     List<QuizModel> quizList = [];
-
+    int i = 1;
     for (WordModel word in newWords) {
       Random random = Random();
       List<WordModel> options = [];
@@ -25,7 +24,10 @@ class QuizHelper {
       }
       int answerIndex = random.nextInt(options.length + 1);
       options.insert(answerIndex, word);
-      quizList.add(QuizModel(options: options, answerIndex: answerIndex));
+      QuizModel model = QuizModel(options: options, answerIndex: answerIndex);
+      print(i.toString() + ' answer:' + model.answerIndex.toString());
+      i++;
+      quizList.add(model);
     }
     return quizList;
   }
