@@ -9,7 +9,8 @@ const textColor = Color(0xFFFFFFFF);
 const lightTextColor = Colors.black;
 const darkTextColor = Colors.white;
 
-Color textColorWithOpacity(Brightness brightness, double opacity) {
+Color textColorWithOpacity(BuildContext context, double opacity) {
+  Brightness brightness = Theme.of(context).brightness;
   Color textColor = themeTextColor(brightness);
   return textColor.withOpacity(opacity);
 }
@@ -46,6 +47,7 @@ ButtonStyle questionButtonStyle(BuildContext context) {
     primary: theme.brightness == Brightness.dark ? Colors.white.withAlpha(80) : const Color(0xAAF0F0F0),
     onSurface: Colors.black,
     onPrimary: theme.brightness == Brightness.dark ? Colors.white : Colors.black,
+    maximumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
   );
 }
 
@@ -56,6 +58,7 @@ ButtonStyle correctButtonStyle(BuildContext context) {
     primary: Colors.greenAccent,
     onSurface: Colors.green.shade800,
     onPrimary: Colors.black,
+    maximumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
   );
 }
 
@@ -66,6 +69,7 @@ ButtonStyle wrongButtonStyle(BuildContext context) {
     primary: Colors.redAccent,
     onSurface: Colors.red.shade800,
     onPrimary: Colors.black,
+    maximumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
   );
 }
 

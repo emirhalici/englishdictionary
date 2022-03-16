@@ -72,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FAProgressBar(
                 currentValue: (currentIndex / questionCount * 100).toInt(),
@@ -94,14 +94,15 @@ class _QuizPageState extends State<QuizPage> {
               Padding(
                 padding: EdgeInsets.only(top: 32.h, left: 20.w, right: 20.w),
                 child: Text(
-                  isReversed
-                      ? currentQuestion.options[currentQuestion.answerIndex].definition
-                      : currentQuestion.options[currentQuestion.answerIndex].word,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline3?.copyWith(
-                        fontSize: 24.sp,
-                      ),
-                ),
+                    isReversed
+                        ? currentQuestion.options[currentQuestion.answerIndex].definition
+                        : currentQuestion.options[currentQuestion.answerIndex].word,
+                    textAlign: TextAlign.center,
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          fontSize: 24.sp,
+                        )),
               ),
             ],
           ), // top part
@@ -162,7 +163,14 @@ class _QuizPageState extends State<QuizPage> {
                       }
                     });
                   },
-                  style: buttonStyle(2),
+                  style: buttonStyle(2).copyWith(
+                    maximumSize: MaterialStateProperty.all(
+                      Size(
+                        double.infinity,
+                        MediaQuery.of(context).size.height * 0.1,
+                      ),
+                    ),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
