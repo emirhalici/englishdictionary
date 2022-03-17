@@ -9,25 +9,22 @@ class QuizHelper {
     newWords.shuffle();
 
     List<QuizModel> quizList = [];
-    int i = 1;
     for (WordModel word in newWords) {
       Random random = Random();
       List<WordModel> options = [];
       while (options.length < optionSize) {
         int randomIndex = random.nextInt(selectedWords.length);
         WordModel nextWord = selectedWords[randomIndex];
-        while (options.contains(nextWord)) {
+        while (options.contains(nextWord) || word.word == nextWord.word) {
           randomIndex = random.nextInt(selectedWords.length);
           nextWord = selectedWords[randomIndex];
         }
         options.add(nextWord);
       }
       int answerIndex = random.nextInt(options.length);
-      print(answerIndex.toString());
       options.insert(answerIndex, word);
+      //print(answerIndex.toString() + '   =>  ' + options[0].word + ' ' + options[1].word + ' ' + options[2].word + ' ' + options[3].word);
       QuizModel model = QuizModel(options: options, answerIndex: answerIndex);
-      print(i.toString() + ' answer:' + model.answerIndex.toString());
-      i++;
       quizList.add(model);
     }
     return quizList;
