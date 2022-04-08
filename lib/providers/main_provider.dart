@@ -49,7 +49,9 @@ class MainProvider with ChangeNotifier {
       }
     }
     count -= 5;
-
+    if (count < 0) {
+      count = 0;
+    }
     return count;
   }
 

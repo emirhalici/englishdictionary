@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: title,
         theme: lightTheme,
         darkTheme: darkTheme,
