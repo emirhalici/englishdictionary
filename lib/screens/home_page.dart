@@ -36,26 +36,29 @@ class _HomePageState extends State<HomePage> {
       ));
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('English Dictionary'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: Material(
-        color: Colors.transparent,
-        child: cards.isNotEmpty
-            ? SingleChildScrollView(
-                controller: context.watch<MainProvider>().controller,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                  child: StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    children: cards,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: () => Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('English Dictionary'),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        body: Material(
+          color: Colors.transparent,
+          child: cards.isNotEmpty
+              ? SingleChildScrollView(
+                  controller: context.watch<MainProvider>().controller,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                    child: StaggeredGrid.count(
+                      crossAxisCount: 2,
+                      children: cards,
+                    ),
                   ),
-                ),
-              )
-            : const EmptyMainPage(),
+                )
+              : const EmptyMainPage(),
+        ),
       ),
     );
   }

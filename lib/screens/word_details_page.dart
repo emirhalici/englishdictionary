@@ -18,74 +18,78 @@ class WordDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Color exampleTextColor =
         Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.48) : Colors.white.withOpacity(0.6);
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('Word Details'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(left: 24.w, right: 24.w, top: 16.w, bottom: 24.w),
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              capitalize(wordModel.word),
-              style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 20.h),
-            WordDetailsCard(type: wordModel.type, definition: capitalize(wordModel.definition)),
-            SizedBox(height: 26.h),
-            Text(
-              wordModel.example.toLowerCase(),
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(color: exampleTextColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 16.h),
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: button2(context, Theme.of(context), 12),
-                      onPressed: () {},
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.h),
-                        child: Text(
-                          'Add word to favourites',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Theme.of(context).brightness == Brightness.dark ? darkTextColor : lightTextColor,
-                          side: BorderSide(color: Colors.red.shade800, width: 2.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                      onPressed: () {
-                        context.read<MainProvider>().delete(wordModel);
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.h),
-                        child: Text(
-                          'Delete word',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.red.shade800),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: () => Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('Word Details'),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(left: 24.w, right: 24.w, top: 16.w, bottom: 24.w),
+            child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                capitalize(wordModel.word),
+                style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp, fontWeight: FontWeight.w600),
               ),
-            )
-          ]),
+              SizedBox(height: 20.h),
+              WordDetailsCard(type: wordModel.type, definition: capitalize(wordModel.definition)),
+              SizedBox(height: 26.h),
+              Text(
+                wordModel.example.toLowerCase(),
+                style:
+                    Theme.of(context).textTheme.bodyText1?.copyWith(color: exampleTextColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 16.h),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        style: button2(context, Theme.of(context), 12),
+                        onPressed: () {},
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          child: Text(
+                            'Add word to favourites',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            primary: Theme.of(context).brightness == Brightness.dark ? darkTextColor : lightTextColor,
+                            side: BorderSide(color: Colors.red.shade800, width: 2.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                        onPressed: () {
+                          context.read<MainProvider>().delete(wordModel);
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          child: Text(
+                            'Delete word',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.red.shade800),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+          ),
         ),
       ),
     );

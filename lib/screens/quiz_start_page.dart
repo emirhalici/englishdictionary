@@ -21,7 +21,7 @@ class _QuizStartPageState extends State<QuizStartPage> {
   bool isQuizReversed = false;
   List<String> allTypes = [];
   List<String> typeFilter = [];
-  int maxQuizSize = 99;
+  int maxQuizSize = 99; 
   bool isFirst = true;
 
   void buildChips() async {
@@ -41,167 +41,171 @@ class _QuizStartPageState extends State<QuizStartPage> {
   Widget build(BuildContext context) {
     buildChips();
     maxQuizSize = context.watch<MainProvider>().maxQuizSize(typeFilter);
+    
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: Container(
-        child: allTypes.isEmpty
-            ? const EmptyQuizPage()
-            : Stack(
-                fit: StackFit.expand,
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 32.h),
-                      child: ElevatedButton(
-                        style: button2(context, Theme.of(context), 24),
-                        onPressed: () async {
-                          // input validation
-                          if (desiredQuizSize <= 0) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Theme.of(context).colorScheme.primary,
-                                content: const Text("Please choose a bigger quiz size."),
-                              ),
-                            );
-                          } else {
-                            // move to the quiz page
-                            List<WordModel> words = context.read<MainProvider>().wordList;
-                            context.read<QuizProvider>().resetEverything();
-                            context.read<QuizProvider>().setSelectedWords(words);
-                            context.read<QuizProvider>().filterWords(desiredQuizSize, typeFilter);
-                            context.read<QuizProvider>().initializeList(desiredQuizSize);
-                            context.read<QuizProvider>().setQuizStatus(!isQuizReversed);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizPage()));
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                          child: Text('Start', style: TextStyle(fontSize: 24.sp)),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: () => Scaffold(
+        appBar: AppBar(
+          title: const Text('Quiz'),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        body: Container(
+          child: allTypes.isEmpty || maxQuizSize <= 1
+              ? const EmptyQuizPage()
+              : Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 32.h),
+                        child: ElevatedButton(
+                          style: button2(context, Theme.of(context), 24),
+                          onPressed: () async {
+                            // input validation
+                            if (desiredQuizSize <= 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  content: const Text("Please choose a bigger quiz size."),
+                                ),
+                              );
+                            } else {
+                              // move to the quiz page
+                              List<WordModel> words = context.read<MainProvider>().wordList;
+                              context.read<QuizProvider>().resetEverything();
+                              context.read<QuizProvider>().setSelectedWords(words);
+                              context.read<QuizProvider>().filterWords(desiredQuizSize, typeFilter);
+                              context.read<QuizProvider>().initializeList(desiredQuizSize);
+                              context.read<QuizProvider>().setQuizStatus(!isQuizReversed);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizPage()));
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                            child: Text('Start', style: TextStyle(fontSize: 24.sp)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Quiz',
-                          style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp),
-                          textAlign: TextAlign.start,
-                        ),
-                        SizedBox(height: 16.h),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Reverse the quiz format',
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Checkbox(
-                              fillColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
-                              value: isQuizReversed,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  isQuizReversed = newValue ?? false;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                        const Divider(thickness: 2, height: 16),
-                        Text(
-                          'Quiz size',
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: Slider.adaptive(
-                                min: 0,
-                                max: maxQuizSize.toDouble() <= 1 ? 1 : maxQuizSize.toDouble(),
-                                value: desiredQuizSize > maxQuizSize ? maxQuizSize.toDouble() : desiredQuizSize.toDouble(),
-                                activeColor: Theme.of(context).colorScheme.primary,
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Quiz',
+                            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 36.sp),
+                            textAlign: TextAlign.start,
+                          ),
+                          SizedBox(height: 16.h),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Reverse the quiz format',
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
+                              ),
+                              Checkbox(
+                                fillColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
+                                value: isQuizReversed,
                                 onChanged: (newValue) {
                                   setState(() {
-                                    desiredQuizSize = newValue.toInt();
+                                    isQuizReversed = newValue ?? false;
                                   });
                                 },
                               ),
-                            ),
-                            SizedBox(width: 12.w),
-                            Text(
-                              '$desiredQuizSize/$maxQuizSize',
-                              textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                        const Divider(thickness: 2, height: 16),
-                        Text(
-                          'Filter word type',
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
-                        ),
-                        Wrap(
-                          spacing: 8.w,
-                          children: List<Widget>.generate(
-                            allTypes.length,
-                            (int idx) {
-                              return FilterChip(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: chipBorderColor(context), width: 1),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  backgroundColor: Colors.transparent,
-                                  selectedColor: Colors.transparent,
-                                  label: Text(
-                                    allTypes[idx],
-                                    style: const TextStyle(),
-                                  ),
-                                  selected: typeFilter.contains(allTypes[idx]),
-                                  onSelected: (bool selected) {
+                            ],
+                          ),
+                          const Divider(thickness: 2, height: 16),
+                          Text(
+                            'Quiz size',
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Slider.adaptive(
+                                  min: 0,
+                                  max: maxQuizSize.toDouble() <= 1 ? 1 : maxQuizSize.toDouble(),
+                                  value: desiredQuizSize > maxQuizSize ? maxQuizSize.toDouble() : desiredQuizSize.toDouble(),
+                                  activeColor: Theme.of(context).colorScheme.primary,
+                                  onChanged: (newValue) {
                                     setState(() {
-                                      if (selected) {
-                                        if (!typeFilter.contains(allTypes[idx])) {
-                                          typeFilter.add(allTypes[idx]);
-                                          desiredQuizSize = 0;
-                                        }
-                                      } else {
-                                        if (typeFilter.length == 1) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              backgroundColor: Theme.of(context).colorScheme.primary,
-                                              content: const Text("At least 1 type should be selected."),
-                                            ),
-                                          );
-                                        } else {
-                                          typeFilter.remove(allTypes[idx]);
-                                          desiredQuizSize = 0;
-                                        }
-                                      }
+                                      desiredQuizSize = newValue.toInt();
                                     });
-                                  });
-                            },
-                          ).toList(),
-                        )
-                      ],
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: 12.w),
+                              Text(
+                                '$desiredQuizSize/$maxQuizSize',
+                                textAlign: TextAlign.start,
+                                style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                          const Divider(thickness: 2, height: 16),
+                          Text(
+                            'Filter word type',
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w300),
+                          ),
+                          Wrap(
+                            spacing: 8.w,
+                            children: List<Widget>.generate(
+                              allTypes.length,
+                              (int idx) {
+                                return FilterChip(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: chipBorderColor(context), width: 1),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    backgroundColor: Colors.transparent,
+                                    selectedColor: Colors.transparent,
+                                    label: Text(
+                                      allTypes[idx],
+                                      style: const TextStyle(),
+                                    ),
+                                    selected: typeFilter.contains(allTypes[idx]),
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          if (!typeFilter.contains(allTypes[idx])) {
+                                            typeFilter.add(allTypes[idx]);
+                                            desiredQuizSize = 0;
+                                          }
+                                        } else {
+                                          if (typeFilter.length == 1) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                content: const Text("At least 1 type should be selected."),
+                                              ),
+                                            );
+                                          } else {
+                                            typeFilter.remove(allTypes[idx]);
+                                            desiredQuizSize = 0;
+                                          }
+                                        }
+                                      });
+                                    });
+                              },
+                            ).toList(),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+        ),
       ),
     );
   }

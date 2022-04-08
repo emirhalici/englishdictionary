@@ -65,204 +65,207 @@ class _QuizPageState extends State<QuizPage> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        automaticallyImplyLeading: false,
-        title: const Text("Quiz"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              FAProgressBar(
-                currentValue: (currentIndex / questionCount * 100).toInt(),
-                maxValue: 100,
-                size: 5,
-                animatedDuration: const Duration(milliseconds: 100),
-                progressColor: Theme.of(context).brightness == Brightness.dark
-                    ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.primaryContainer,
-              ),
-              // LinearProgressIndicator(
-              //   color: Theme.of(context).brightness == Brightness.dark
-              //       ? Theme.of(context).colorScheme.secondary
-              //       : Theme.of(context).colorScheme.primaryContainer,
-              //   backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).colorScheme.background,
-              //   minHeight: 5,
-              //   value: (currentIndex) / questionCount,
-              // ),
-              Padding(
-                padding: EdgeInsets.only(top: 32.h, left: 20.w, right: 20.w),
-                child: Text(
-                    isReversed
-                        ? currentQuestion.options[currentQuestion.answerIndex].definition
-                        : currentQuestion.options[currentQuestion.answerIndex].word,
-                    textAlign: TextAlign.center,
-                    maxLines: 6,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          fontSize: 24.sp,
-                        )),
-              ),
-            ],
-          ), // top part
-          Padding(
-            padding: EdgeInsets.only(bottom: 22.h, left: 38.w, right: 38.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: () => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          automaticallyImplyLeading: false,
+          title: const Text("Quiz"),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (isActive) {
-                        updateButtons(0);
-                        isActive = false;
-                        choice = 0;
-                      }
-                    });
-                  },
-                  style: buttonStyle(0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AutoSizeText(
-                      isReversed ? currentQuestion.options[0].word : currentQuestion.options[0].definition,
-                      style: quizButtonStyle(Theme.of(context)),
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
+                FAProgressBar(
+                  currentValue: (currentIndex / questionCount * 100).toInt(),
+                  maxValue: 100,
+                  size: 5,
+                  animatedDuration: const Duration(milliseconds: 100),
+                  progressColor: Theme.of(context).brightness == Brightness.dark
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.primaryContainer,
                 ),
-                SizedBox(height: 8.h),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (isActive) {
-                        updateButtons(1);
-                        isActive = false;
-                        choice = 1;
-                      }
-                    });
-                  },
-                  style: buttonStyle(1),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AutoSizeText(
-                      isReversed ? currentQuestion.options[1].word : currentQuestion.options[1].definition,
-                      style: quizButtonStyle(Theme.of(context)),
+                // LinearProgressIndicator(
+                //   color: Theme.of(context).brightness == Brightness.dark
+                //       ? Theme.of(context).colorScheme.secondary
+                //       : Theme.of(context).colorScheme.primaryContainer,
+                //   backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).colorScheme.background,
+                //   minHeight: 5,
+                //   value: (currentIndex) / questionCount,
+                // ),
+                Padding(
+                  padding: EdgeInsets.only(top: 32.h, left: 20.w, right: 20.w),
+                  child: Text(
+                      isReversed
+                          ? currentQuestion.options[currentQuestion.answerIndex].definition
+                          : currentQuestion.options[currentQuestion.answerIndex].word,
                       textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
+                      maxLines: 6,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            fontSize: 24.sp,
+                          )),
                 ),
-                SizedBox(height: 8.h),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (isActive) {
-                        updateButtons(2);
-                        isActive = false;
-                        choice = 2;
-                      }
-                    });
-                  },
-                  style: buttonStyle(2).copyWith(
-                    maximumSize: MaterialStateProperty.all(
-                      Size(
-                        double.infinity,
-                        MediaQuery.of(context).size.height * 0.1,
+              ],
+            ), // top part
+            Padding(
+              padding: EdgeInsets.only(bottom: 22.h, left: 38.w, right: 38.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (isActive) {
+                          updateButtons(0);
+                          isActive = false;
+                          choice = 0;
+                        }
+                      });
+                    },
+                    style: buttonStyle(0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AutoSizeText(
+                        isReversed ? currentQuestion.options[0].word : currentQuestion.options[0].definition,
+                        style: quizButtonStyle(Theme.of(context)),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
                       ),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AutoSizeText(
-                      isReversed ? currentQuestion.options[2].word : currentQuestion.options[2].definition,
-                      style: quizButtonStyle(Theme.of(context)),
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
+                  SizedBox(height: 8.h),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (isActive) {
+                          updateButtons(1);
+                          isActive = false;
+                          choice = 1;
+                        }
+                      });
+                    },
+                    style: buttonStyle(1),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AutoSizeText(
+                        isReversed ? currentQuestion.options[1].word : currentQuestion.options[1].definition,
+                        style: quizButtonStyle(Theme.of(context)),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (isActive) {
-                        updateButtons(3);
-                        isActive = false;
-                        choice = 3;
-                      }
-                    });
-                  },
-                  style: buttonStyle(3),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AutoSizeText(
-                      isReversed ? currentQuestion.options[3].word : currentQuestion.options[3].definition,
-                      style: quizButtonStyle(Theme.of(context)),
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 36.h),
-                IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          style: button2(context, Theme.of(context), 8),
-                          onPressed: () {
-                            context.read<QuizProvider>().nextQuestion(choice);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizEndPage()));
-                          },
-                          child: Text(
-                            'End Test',
-                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
+                  SizedBox(height: 8.h),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (isActive) {
+                          updateButtons(2);
+                          isActive = false;
+                          choice = 2;
+                        }
+                      });
+                    },
+                    style: buttonStyle(2).copyWith(
+                      maximumSize: MaterialStateProperty.all(
+                        Size(
+                          double.infinity,
+                          MediaQuery.of(context).size.height * 0.1,
                         ),
                       ),
-                      Visibility(
-                        visible: isNextButtonVisible,
-                        child: SizedBox(width: 20.w),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AutoSizeText(
+                        isReversed ? currentQuestion.options[2].word : currentQuestion.options[2].definition,
+                        style: quizButtonStyle(Theme.of(context)),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
                       ),
-                      Visibility(
-                        visible: isNextButtonVisible,
-                        child: Expanded(
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (isActive) {
+                          updateButtons(3);
+                          isActive = false;
+                          choice = 3;
+                        }
+                      });
+                    },
+                    style: buttonStyle(3),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AutoSizeText(
+                        isReversed ? currentQuestion.options[3].word : currentQuestion.options[3].definition,
+                        style: quizButtonStyle(Theme.of(context)),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 36.h),
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
                           child: ElevatedButton(
                             style: button2(context, Theme.of(context), 8),
                             onPressed: () {
-                              if (questionCount == currentIndex + 2) {
-                                setState(() {
-                                  isNextButtonVisible = false;
-                                });
-                              }
-                              isActive = true;
                               context.read<QuizProvider>().nextQuestion(choice);
-                              resetButtons();
-                              choice = -1;
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizEndPage()));
                             },
                             child: Text(
-                              'Next',
+                              'End Test',
                               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Visibility(
+                          visible: isNextButtonVisible,
+                          child: SizedBox(width: 20.w),
+                        ),
+                        Visibility(
+                          visible: isNextButtonVisible,
+                          child: Expanded(
+                            child: ElevatedButton(
+                              style: button2(context, Theme.of(context), 8),
+                              onPressed: () {
+                                if (questionCount == currentIndex + 2) {
+                                  setState(() {
+                                    isNextButtonVisible = false;
+                                  });
+                                }
+                                isActive = true;
+                                context.read<QuizProvider>().nextQuestion(choice);
+                                resetButtons();
+                                choice = -1;
+                              },
+                              child: Text(
+                                'Next',
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ), // bottom answer buttons
-        ],
+                ],
+              ),
+            ), // bottom answer buttons
+          ],
+        ),
       ),
     );
   }
