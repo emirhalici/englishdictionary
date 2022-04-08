@@ -20,7 +20,10 @@ class _MainPageState extends State<MainPage> {
     if (_currentIndex == val) {
       switch (val) {
         case 0:
-          context.read<MainProvider>().scrollToTop();
+          if (context.read<MainProvider>().wordList.isNotEmpty) {
+            context.read<MainProvider>().scrollToTop();
+          }
+
           _mainScreen.currentState?.popUntil((route) => route.isFirst);
           break;
         case 1:
