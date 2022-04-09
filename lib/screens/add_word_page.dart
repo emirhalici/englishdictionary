@@ -137,7 +137,7 @@ class _AddWordPageState extends State<AddWordPage> {
                                 child: ElevatedButton(
                                   style: button2(context, Theme.of(context), 8),
                                   onPressed: () async {
-                                    String inputText = controller.text;
+                                    String inputText = controller.text.trim();
                                     try {
                                       var response = await ApiHelper().searchWord(inputText);
                                       List<WordModel> words = ApiHelper().getWordModelsFromResponse(response);
