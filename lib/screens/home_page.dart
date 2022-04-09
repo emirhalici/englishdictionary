@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       cards.add(WordListCard(
         wordModel: word,
         onPress: () {
-          context.read<MainProvider>().scrollToTop();
+          //context.read<MainProvider>().scrollToTop();
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
         },
       ));
