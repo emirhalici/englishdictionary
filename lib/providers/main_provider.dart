@@ -9,6 +9,7 @@ class MainProvider with ChangeNotifier {
   List<WordModel> get wordList => _wordList;
   List<WordModel> get favoriteWordList => _favoriteWordList;
   ScrollController controller = ScrollController();
+  ScrollController controller2 = ScrollController();
 
   void scrollToTop() {
     controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
