@@ -3,6 +3,7 @@ import 'package:english_dictionary/models/word_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String tableName = 'tableWords';
+const String tableFavoriteName = 'tableFavorites';
 const String columnId = 'columnId';
 const String columnWord = 'columnWord';
 const String columnType = 'columnType';
@@ -21,7 +22,7 @@ class WordsDatabaseHelper {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute(
-            '''create table $tableName ($columnId integer primary key autoincrement, $columnWord text not null, $columnType text not null, $columnDefinition text not null, $columnExample text not null)''');
+            '''create table if not exists $tableName ($columnId integer primary key autoincrement, $columnWord text not null, $columnType text not null, $columnDefinition text not null, $columnExample text not null)''');
       },
     );
     return database;
@@ -73,4 +74,43 @@ class WordsDatabaseHelper {
   }
 
   Future close(Database db) async => db.close();
+
+  Future<String> getFavoriteDatabasePath() async {
+    var databasesPath = await getDatabasesPath();
+    return databasesPath + tableFavoriteName;
+  }
+
+  Future<Database> openFavorite(String path) async {
+    Database database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(
+            '''create table if not exists $tableFavoriteName ($columnId integer primary key autoincrement, $columnWord text not null, $columnType text not null, $columnDefinition text not null, $columnExample text not null)''');
+      },
+    );
+    return database;
+  }
+
+  Future<WordModel> insertFavorite(Database db, WordModel wordModel) async {
+    wordModel.id = await db.insert(tableFavoriteName, wordModel.toMap());
+    print('added to favorites' + wordModel.toString());
+    return wordModel;
+  }
+
+  Future<int> deleteFavorite(Database db, int id) async {
+    return await db.delete(tableFavoriteName, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  Future<List<WordModel>> getAllFavoriteWords(Database db) async {
+    List<Map> maps = await db.query(tableFavoriteName);
+    List<WordModel> words = [];
+    if (maps.isNotEmpty) {
+      for (var map in maps) {
+        WordModel model = wordModelFromMap(map);
+        words.add(model);
+      }
+    }
+    return words;
+  }
 }

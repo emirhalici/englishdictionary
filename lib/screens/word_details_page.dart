@@ -59,7 +59,53 @@ class WordDetailsPage extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         style: button2(context, Theme.of(context), 12),
-                        onPressed: () {},
+                        onPressed: () {
+                          // Show confirmation dialog with platform specific ui
+                          if (Platform.isIOS) {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (BuildContext context) => CupertinoAlertDialog(
+                                  title: const Text("Add to vocabulary?"),
+                                  content: Text("The word ${wordModel.word} will be added to your favorites list."),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                      child: const Text('Add'),
+                                      onPressed: () {
+                                        context.read<MainProvider>().insertFavorite(wordModel);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: const Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ]),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text("Add to vocabulary?"),
+                                content: Text("The word ${wordModel.word} will be added to your favorites list."),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        context.read<MainProvider>().insertFavorite(wordModel);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Add')),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel')),
+                                ],
+                              ),
+                            );
+                          }
+                        },
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 6.h),
                           child: Text(

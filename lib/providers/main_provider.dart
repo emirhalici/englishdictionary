@@ -5,7 +5,9 @@ import 'package:sqflite/sqflite.dart';
 
 class MainProvider with ChangeNotifier {
   List<WordModel> _wordList = [];
+  List<WordModel> _favoriteWordList = [];
   List<WordModel> get wordList => _wordList;
+  List<WordModel> get favoriteWordList => _favoriteWordList;
   ScrollController controller = ScrollController();
 
   void scrollToTop() {
@@ -17,6 +19,10 @@ class MainProvider with ChangeNotifier {
     String path = await helper.getDatabasePath();
     Database db = await helper.open(path);
     _wordList = await helper.getAllWords(db);
+
+    String pathFavorite = await helper.getFavoriteDatabasePath();
+    Database dbFavorite = await helper.openFavorite(pathFavorite);
+    _favoriteWordList = await helper.getAllFavoriteWords(dbFavorite);
     notifyListeners();
   }
 
@@ -36,6 +42,28 @@ class MainProvider with ChangeNotifier {
     await helper.insert(db, wordModel);
 
     _wordList = await helper.getAllWords(db);
+    notifyListeners();
+  }
+
+  void insertFavorite(WordModel wordModel) async {
+    WordsDatabaseHelper helper = WordsDatabaseHelper();
+    String path = await helper.getFavoriteDatabasePath();
+    Database db = await helper.openFavorite(path);
+    await helper.insertFavorite(db, wordModel);
+
+    _favoriteWordList = await helper.getAllFavoriteWords(db);
+    print(_favoriteWordList);
+    notifyListeners();
+  }
+
+  void deleteFavorite(WordModel wordModel) async {
+    WordsDatabaseHelper helper = WordsDatabaseHelper();
+    String path = await helper.getFavoriteDatabasePath();
+    Database db = await helper.openFavorite(path);
+    await helper.deleteFavorite(db, wordModel.id);
+
+    _favoriteWordList = await helper.getAllFavoriteWords(db);
+    print(_favoriteWordList);
     notifyListeners();
   }
 
