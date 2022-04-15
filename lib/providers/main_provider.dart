@@ -12,7 +12,14 @@ class MainProvider with ChangeNotifier {
   ScrollController controller2 = ScrollController();
 
   void scrollToTop() {
-    controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    // TEMPORARY FIX 
+    // TODO: FIX LATER
+    try {
+      controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    } catch (e) {}
+    try {
+      controller2.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    } catch (e) {}
   }
 
   void refresh() async {
