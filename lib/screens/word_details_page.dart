@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:english_dictionary/components/word_details_card.dart';
 import 'package:english_dictionary/models/word_model.dart';
 import 'package:english_dictionary/providers/main_provider.dart';
 import 'package:english_dictionary/themes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +19,11 @@ class WordDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void deleteItem(WordModel model) {
+      context.read<MainProvider>().delete(wordModel);
+      Navigator.of(context).pop();
+    }
+
     Color exampleTextColor =
         Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.48) : Colors.white.withOpacity(0.6);
     return ScreenUtilInit(
@@ -72,8 +80,50 @@ class WordDetailsPage extends StatelessWidget {
                             side: BorderSide(color: Colors.red.shade800, width: 2.0),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
                         onPressed: () {
-                          context.read<MainProvider>().delete(wordModel);
-                          Navigator.pop(context);
+                          // ask for confirmation
+                          if (Platform.isIOS) {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (BuildContext context) => CupertinoAlertDialog(
+                                  title: const Text("Delete word?"),
+                                  content: Text("The word ${wordModel.word} will be deleted from your vocabulary"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                      child: const Text('Delete'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        deleteItem(wordModel);
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: const Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ]),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text("Delete word?"),
+                                content: Text("The word ${wordModel.word} will be deleted from your vocabulary"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        deleteItem(wordModel);
+                                      },
+                                      child: const Text('Add')),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel')),
+                                ],
+                              ),
+                            );
+                          }
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 6.h),
