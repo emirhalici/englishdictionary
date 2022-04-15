@@ -2,6 +2,7 @@ import 'package:english_dictionary/components/empty_main_page.dart';
 import 'package:english_dictionary/components/word_list_card.dart';
 import 'package:english_dictionary/models/word_model.dart';
 import 'package:english_dictionary/providers/main_provider.dart';
+import 'package:english_dictionary/screens/word_details_favorite_page.dart';
 import 'package:english_dictionary/screens/word_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         wordModel: word,
         onPress: () {
           //context.read<MainProvider>().scrollToTop();
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsPage(wordModel: word)));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordDetailsFavoritePage(wordModel: word)));
         },
       ));
     }
