@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class EmptyMainPage extends StatelessWidget {
-  const EmptyMainPage({Key? key}) : super(key: key);
+  String message;
+  EmptyMainPage({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class EmptyMainPage extends StatelessWidget {
           Opacity(
             opacity: 0.5,
             child: Text(
-              "Go and add some vocabulary.",
+              message,
               style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 17.sp, fontWeight: FontWeight.w500),
             ),
           ),

@@ -82,33 +82,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: TabBarView(
                           //controller: widget.tabController,
                           children: [
-                            SingleChildScrollView(
-                              controller: context.watch<MainProvider>().controller,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                                child: StaggeredGrid.count(
-                                  crossAxisCount: 2,
-                                  children: cards,
-                                ),
-                              ),
-                            ),
-                            SingleChildScrollView(
-                              controller: context.watch<MainProvider>().controller2,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                                child: StaggeredGrid.count(
-                                  crossAxisCount: 2,
-                                  children: favoriteCards,
-                                ),
-                              ),
-                            ),
+                            cards.isEmpty
+                                ? EmptyMainPage(message: "Go and add some vocabulary.")
+                                : SingleChildScrollView(
+                                    controller: context.watch<MainProvider>().controller,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                                      child: StaggeredGrid.count(
+                                        crossAxisCount: 2,
+                                        children: cards,
+                                      ),
+                                    ),
+                                  ),
+                            favoriteCards.isEmpty
+                                ? EmptyMainPage(message: "Go and add some words to your favorites.")
+                                : SingleChildScrollView(
+                                    controller: context.watch<MainProvider>().controller2,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                                      child: StaggeredGrid.count(
+                                        crossAxisCount: 2,
+                                        children: favoriteCards,
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       )
                     ],
                   ),
                 )
-              : const EmptyMainPage(),
+              : EmptyMainPage(message: "Go and add some vocabulary."),
         ),
       ),
     );
