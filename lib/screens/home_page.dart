@@ -78,6 +78,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        ),
+                        width: double.infinity,
+                        height: 1,
+                      ),
                       Expanded(
                         child: TabBarView(
                           //controller: widget.tabController,
