@@ -75,10 +75,21 @@ class AddWordManuallyPage extends StatelessWidget {
                           String definition = controllerDefinition.text;
                           String example = controllerExample.text;
 
-                          WordModel newWord = WordModel(id: -1, word: word, definition: definition, type: type, example: example);
+                          // form validation
+                          if (word.isEmpty || type.isEmpty || definition.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('Please fill the forms correctly.'),
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                duration: const Duration(milliseconds: 1500),
+                              ),
+                            );
+                          } else {
+                            WordModel newWord = WordModel(id: -1, word: word, definition: definition, type: type, example: example);
 
-                          context.read<MainProvider>().insert(newWord);
-                          Navigator.pop(context);
+                            context.read<MainProvider>().insert(newWord);
+                            Navigator.pop(context);
+                          }
                         },
                         child: Text('Add Word', style: TextStyle(fontSize: 14.sp)),
                       ),
