@@ -13,7 +13,7 @@ class QuizEndPage extends StatelessWidget {
   Widget build(BuildContext context) {
     int qCount = context.read<QuizProvider>().questionCount;
     int cCount = context.read<QuizProvider>().trueAnswer;
-    int wCount = context.read<QuizProvider>().wrongAnswer;
+    //int wCount = context.read<QuizProvider>().wrongAnswer;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () => Scaffold(

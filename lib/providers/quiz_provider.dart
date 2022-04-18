@@ -32,7 +32,7 @@ class QuizProvider with ChangeNotifier {
 
     // then filter by size
     if (selectedWords.length < size) {
-      print('selectedWords > size');
+      //print('selectedWords > size');
     }
 
     notifyListeners();

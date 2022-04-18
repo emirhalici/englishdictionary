@@ -27,7 +27,7 @@ class _QuizPageState extends State<QuizPage> {
     int questionCount = context.watch<QuizProvider>().questionCount;
     QuizModel currentQuestion = context.watch<QuizProvider>().getQuizModel();
 
-    print('current at $currentIndex+1th question');
+    //print('current at $currentIndex+1th question');
 
     // 0 for unanswered, 1 for correct, 2 for wrong answers, 3 for disabled.
 

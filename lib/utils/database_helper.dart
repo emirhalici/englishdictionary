@@ -94,7 +94,6 @@ class WordsDatabaseHelper {
 
   Future<WordModel> insertFavorite(Database db, WordModel wordModel) async {
     wordModel.id = await db.insert(tableFavoriteName, wordModel.toMap());
-    print('added to favorites' + wordModel.toString());
     return wordModel;
   }
 
