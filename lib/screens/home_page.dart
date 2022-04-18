@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           //controller: widget.tabController,
                           children: [
                             cards.isEmpty
-                                ? EmptyMainPage(message: "Go and add some vocabulary.")
+                                ? const EmptyMainPage(message: "Go and add some vocabulary.")
                                 : SingleChildScrollView(
                                     controller: context.watch<MainProvider>().controller,
                                     child: Padding(
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     ),
                                   ),
                             favoriteCards.isEmpty
-                                ? EmptyMainPage(message: "Go and add some words to your favorites.")
+                                ? const EmptyMainPage(message: "Go and add some words to your favorites.")
                                 : SingleChildScrollView(
                                     controller: context.watch<MainProvider>().controller2,
                                     child: Padding(
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 )
-              : EmptyMainPage(message: "Go and add some vocabulary."),
+              : const EmptyMainPage(message: "Go and add some vocabulary."),
         ),
       ),
     );
