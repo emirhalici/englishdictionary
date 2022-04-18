@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class EmptyMainPage extends StatelessWidget {
-  String message;
-  EmptyMainPage({Key? key, required this.message}) : super(key: key);
+  final String message;
+  const EmptyMainPage({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
